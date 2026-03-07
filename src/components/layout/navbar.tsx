@@ -14,9 +14,9 @@ const Navbar = () => {
 
 				<div className="flex items-center gap-3">
 					<Button className="hidden sm:inline-flex" variant="outline">
-						Sign In
+						Login
 					</Button>
-					<Button>Get Started</Button>
+					<Button className="bg-brand-violet hover:bg-brand-navy">Register</Button>
 
 					{/* Mobile Menu */}
 					<div className="md:hidden">
