@@ -2,7 +2,6 @@ import FeaturesSection from "@/components/home/FeaturesSection";
 import HeroSection from "@/components/home/HeroSection";
 import PopularTutors from "@/components/home/PopularTutors";
 import TrustedByStudents from "@/components/home/TrustedByStudents";
-import { Button } from "@/components/ui/button";
 
 export default function Home() {
 	return (

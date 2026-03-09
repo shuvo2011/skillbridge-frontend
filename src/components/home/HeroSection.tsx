@@ -82,15 +82,15 @@ export default function HeroSection() {
 							</svg>
 						</div>
 						<div>
-							<p className="text-lg font-extrabold text-brand-midnight leading-none">5000+</p>
+							<p className="text-lg font-extrabold text-brand-midnight leading-none">1000+</p>
 							<p className="text-[10px] font-semibold text-brand-gray uppercase tracking-widest mt-0.5">
-								Suitable Courses
+								Active Tutors
 							</p>
 						</div>
 					</div>
 
 					{/* Floating card — bottom right: 20K students */}
-					<div className="absolute bottom-12 -right-4 lg:-right-8 bg-white rounded-2xl shadow-xl shadow-brand-navy/10 px-4 py-3 min-w-[170px]">
+					<div className="absolute bottom-12 -right-4 lg:-right-8 bg-white rounded-2xl shadow-xl shadow-brand-navy/10 px-4 py-3 min-w-42.5">
 						<p className="text-xl font-extrabold text-brand-midnight leading-none">20K</p>
 						<p className="text-[10px] font-semibold text-brand-gray uppercase tracking-widest mt-0.5 mb-3">
 							Active Student
