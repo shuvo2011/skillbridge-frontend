@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSeparator } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 export function RegisterForm({ className, ...props }: React.ComponentProps<"form">) {
 	return (
@@ -12,6 +13,27 @@ export function RegisterForm({ className, ...props }: React.ComponentProps<"form
 					<h1 className="text-2xl font-bold">Create your account</h1>
 					<p className="text-sm text-balance text-muted-foreground">Fill in the form below to create your account</p>
 				</div>
+				<Field className="w-full max-w-xs">
+					<FieldLabel>Department</FieldLabel>
+					<Select>
+						<SelectTrigger>
+							<SelectValue placeholder="Choose department" />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectGroup>
+								<SelectItem value="engineering">Engineering</SelectItem>
+								<SelectItem value="design">Design</SelectItem>
+								<SelectItem value="marketing">Marketing</SelectItem>
+								<SelectItem value="sales">Sales</SelectItem>
+								<SelectItem value="support">Customer Support</SelectItem>
+								<SelectItem value="hr">Human Resources</SelectItem>
+								<SelectItem value="finance">Finance</SelectItem>
+								<SelectItem value="operations">Operations</SelectItem>
+							</SelectGroup>
+						</SelectContent>
+					</Select>
+					<FieldDescription>Select your department or area of work.</FieldDescription>
+				</Field>
 				<Field>
 					<FieldLabel htmlFor="name">Full Name</FieldLabel>
 					<Input id="name" type="text" placeholder="John Doe" required />
