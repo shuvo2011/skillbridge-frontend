@@ -64,9 +64,8 @@ const Footer = () => {
 						<div className="col-span-full lg:col-span-4">
 							<div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-100 ease-in-out fill-mode-both">
 								{/* Logo */}
-								<a href="#">
-									<Logo />
-								</a>
+
+								<Logo />
 
 								<p className="text-base font-normal text-muted-foreground">
 									We provide top-quality tutoring to students. SkillBridge is an excellent platform for students to
