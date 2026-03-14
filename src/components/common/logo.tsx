@@ -4,8 +4,8 @@ import Link from "next/link";
 export const Logo = () => (
 	<Link href="/">
 		<div className="flex items-center gap-2.5 px-6 py-5 border-b border-white/10">
-			<div className="w-12 h-12 rounded-lg bg-brand-violet flex items-center justify-center">
-				<GraduationCap className="w-8 h-8 text-white" />
+			<div className="w-8 h-8 rounded-lg bg-brand-violet flex items-center justify-center">
+				<GraduationCap className="w-4 h-4 text-white" />
 			</div>
 			<div className="mt-1.5">
 				<svg width="130" height="26" viewBox="0 0 130 26" fill="none" xmlns="http://www.w3.org/2000/svg">

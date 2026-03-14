@@ -1,7 +1,6 @@
 import { Logo } from "@/components/common/logo";
 import { RegisterForm } from "@/components/layout/register-form";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function RegisterPage() {
 	return (

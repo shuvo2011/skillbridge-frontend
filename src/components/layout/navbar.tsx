@@ -3,6 +3,7 @@ import { Logo } from "../common/logo";
 import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
 import Link from "next/link";
+import NavbarSearch from "../common/Navbarsearch";
 
 const Navbar = () => {
 	return (
@@ -22,7 +23,7 @@ const Navbar = () => {
 					<Link href="/register">
 						<Button className="bg-brand-violet hover:bg-brand-navy">Register</Button>
 					</Link>
-
+					<NavbarSearch className="hidden md:block" />
 					{/* Mobile Menu */}
 					<div className="md:hidden">
 						<NavigationSheet />
