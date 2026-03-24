@@ -18,7 +18,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
-	const links = navConfig[user.role];
+	const links = navConfig[user.role.toLowerCase() as Role];
 	const [active, setActive] = useState(links[0].href);
 
 	return (

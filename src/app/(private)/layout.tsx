@@ -1,15 +1,37 @@
+"use client";
 import DashboardLayout from "@/components/layout/dashboard/DashboardLayout";
 import { Role } from "@/components/layout/dashboard/nav-config";
 import type { ReactNode } from "react";
-// import { getCurrentUser } from "@/lib/auth";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { useEffect } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {
-	const mockUser = {
-		name: "Rafiq Islam",
-		email: "rafiq@skillbridge.com",
-		role: "admin" as Role,
-		avatar: "",
+	const { data: session, isPending } = authClient.useSession();
+	const router = useRouter();
+
+	// ✅ redirect এখন useEffect এর ভেতরে — hook এর পরে
+	useEffect(() => {
+		if (!isPending && !session) {
+			router.push("/login");
+		}
+	}, [isPending, session, router]);
+
+	// ✅ Loading state — DashboardLayout কে সরিয়ে দিচ্ছি না
+	if (isPending || !session) {
+		return (
+			<div className="flex h-screen items-center justify-center">
+				<p className="text-muted-foreground">Loading...</p>
+			</div>
+		);
+	}
+
+	const user = {
+		name: session.user.name,
+		email: session.user.email,
+		role: session.user.role as Role,
+		avatar: session.user.image ?? "",
 	};
 
-	return <DashboardLayout user={mockUser}>{children}</DashboardLayout>;
+	return <DashboardLayout user={user}>{children}</DashboardLayout>;
 }

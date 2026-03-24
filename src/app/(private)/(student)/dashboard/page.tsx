@@ -1,7 +1,11 @@
-export default function Page() {
-	return (
-		<div>
-			<h1>This is page component</h1>
-		</div>
-	);
+import { userService } from "@/services/user.service";
+import { redirect } from "next/navigation";
+
+export default async function DashboardPage() {
+	const { data: session } = await userService.getSession();
+
+	if (!session) redirect("/login");
+	if (session.user.role !== "STUDENT") redirect("/login");
+
+	return <div>Student Dashboard</div>;
 }
