@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { X, GraduationCap } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { navConfig, type Role } from "./nav-config";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface SidebarProps {
 	isOpen: boolean;
@@ -19,11 +19,10 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
 	const links = navConfig[user.role.toLowerCase() as Role];
-	const [active, setActive] = useState(links[0].href);
+	const pathname = usePathname();
 
 	return (
 		<>
-			{/* Mobile overlay */}
 			{isOpen && <div className="fixed inset-0 bg-black/40 z-30 lg:hidden" onClick={onClose} />}
 
 			<aside
@@ -35,7 +34,6 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
           lg:translate-x-0 lg:static lg:z-auto
         `}
 			>
-				{/* Logo */}
 				<Link href="/">
 					<div className="flex items-center gap-2.5 px-6 py-5 border-b border-white/10">
 						<div className="w-8 h-8 rounded-lg bg-brand-violet flex items-center justify-center">
@@ -48,47 +46,45 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
 					</div>
 				</Link>
 
-				{/* Role badge */}
 				<div className="px-6 py-3">
 					<span className="text-[10px] font-bold uppercase tracking-widest text-white/40">{user.role} Panel</span>
 				</div>
 
-				{/* Nav links */}
 				<nav className="flex-1 px-3 pb-4 flex flex-col gap-1">
 					{links.map((item) => {
 						const Icon = item.icon;
-						const isActive = active === item.href;
+						const isActive = pathname === item.href; // ← pathname দিয়ে check করো
 						return (
-							<button
-								key={item.href}
-								onClick={() => setActive(item.href)}
-								className={`
-                  w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
-                  transition-all duration-150 text-left
-                  ${
-										isActive
-											? "bg-brand-violet text-white shadow-lg shadow-brand-violet/30"
-											: "text-white/60 hover:text-white hover:bg-white/8"
-									}
-                `}
-							>
-								<Icon className="w-4 h-4 shrink-0" />
-								<span className="flex-1">{item.label}</span>
-								{item.badge && (
-									<span
-										className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
-											isActive ? "bg-white/20 text-white" : "bg-brand-violet/30 text-brand-violet"
-										}`}
-									>
-										{item.badge}
-									</span>
-								)}
-							</button>
+							<Link key={item.href} href={item.href}>
+								<button
+									onClick={onClose}
+									className={`
+                    w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
+                    transition-all duration-150 text-left
+                    ${
+											isActive
+												? "bg-brand-violet text-white shadow-lg shadow-brand-violet/30"
+												: "text-white/60 hover:text-white hover:bg-white/8"
+										}
+                  `}
+								>
+									<Icon className="w-4 h-4 shrink-0" />
+									<span className="flex-1">{item.label}</span>
+									{item.badge && (
+										<span
+											className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
+												isActive ? "bg-white/20 text-white" : "bg-brand-violet/30 text-brand-violet"
+											}`}
+										>
+											{item.badge}
+										</span>
+									)}
+								</button>
+							</Link>
 						);
 					})}
 				</nav>
 
-				{/* Bottom user card */}
 				<div className="px-3 py-4 border-t border-white/10">
 					<div className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white/5">
 						<Avatar className="w-8 h-8">
