@@ -1,6 +1,8 @@
 // components/module/student-profile/student-details-form.tsx
 "use client";
 
+import { updateStudentProfile } from "@/actions/student.action";
+import { updateProfilePicture } from "@/actions/update-profile-picture";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
@@ -24,13 +26,47 @@ type StudentProfile = {
 	address?: string;
 };
 
-export function StudentDetailsForm({ profile }: { profile?: StudentProfile }) {
+export function StudentDetailsForm({
+	profile,
+	currentImage,
+}: {
+	profile?: StudentProfile;
+	currentImage?: string | null;
+}) {
+	const [preview, setPreview] = useState<string | null>(currentImage ?? null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
-	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const [uploading, setUploading] = useState(false);
+
+	const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (!file) return;
+
+		if (file.size > 2 * 1024 * 1024) {
+			toast.error("Image must be less than 2MB");
+			return;
+		}
+
+		// instant preview
 		setPreview(URL.createObjectURL(file));
+
+		setUploading(true);
+		const toastId = toast.loading("Uploading photo...");
+
+		const formData = new FormData();
+		formData.append("image", file);
+		formData.append("currentImageUrl", currentImage ?? ""); // ✅ পুরানো image URL
+
+		const result = await updateProfilePicture(formData);
+		setUploading(false);
+
+		if (result.error) {
+			toast.error(result.error.message, { id: toastId });
+			setPreview(currentImage ?? null); // rollback
+			return;
+		}
+
+		toast.success("Profile picture updated!", { id: toastId });
 	};
 
 	const handleRemoveImage = () => {
@@ -48,7 +84,11 @@ export function StudentDetailsForm({ profile }: { profile?: StudentProfile }) {
 		onSubmit: async ({ value }) => {
 			const toastId = toast.loading("Updating profile...");
 			try {
-				// TODO: updateStudentProfile action call
+				const res = await updateStudentProfile(value);
+				if (res.error) {
+					toast.error(res.error.message, { id: toastId });
+					return;
+				}
 				toast.success("Profile Updated", { id: toastId });
 			} catch {
 				toast.error("Something Went Wrong", { id: toastId });
@@ -75,28 +115,29 @@ export function StudentDetailsForm({ profile }: { profile?: StudentProfile }) {
 							<div className="col-span-6">
 								<FieldLabel>Profile Picture</FieldLabel>
 								<div className="mt-2 flex items-center gap-4">
+									{/* শুধু image circle */}
 									<div className="relative w-20 h-20 rounded-full border-2 border-dashed border-gray-200 flex items-center justify-center overflow-hidden bg-gray-50">
 										{preview ? (
-											<>
-												<img src={preview} alt="Profile" className="w-full h-full object-cover" />
-												<button
-													type="button"
-													onClick={handleRemoveImage}
-													className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center"
-												>
-													<X className="w-3 h-3" />
-												</button>
-											</>
+											<img src={preview} alt="Profile" className="w-full h-full object-cover" />
 										) : (
 											<ImagePlus className="w-6 h-6 text-gray-400" />
 										)}
 									</div>
+
+									{/* Button আলাদা */}
 									<div className="flex flex-col gap-1">
-										<Button type="button" variant="outline" size="sm" onClick={() => fileInputRef.current?.click()}>
-											{preview ? "Change Photo" : "Upload Photo"}
+										<Button
+											type="button"
+											variant="outline"
+											size="sm"
+											disabled={uploading}
+											onClick={() => fileInputRef.current?.click()}
+										>
+											{uploading ? "Uploading..." : preview ? "Change Photo" : "Upload Photo"}
 										</Button>
 										<p className="text-xs text-muted-foreground">JPG, PNG. Max 2MB.</p>
 									</div>
+
 									<input
 										ref={fileInputRef}
 										type="file"

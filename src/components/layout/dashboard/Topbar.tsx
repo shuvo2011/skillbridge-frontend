@@ -12,6 +12,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { Role } from "./nav-config";
+import Link from "next/link";
 
 interface TopbarProps {
 	onMenuClick: () => void;
@@ -77,7 +78,7 @@ export default function Topbar({ onMenuClick, user, onLogout }: TopbarProps) {
 							</Badge>
 						</div>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem className="gap-2 text-sm cursor-pointer">
+						<DropdownMenuItem className="text-sm cursor-pointer">
 							<Users className="w-4 h-4" /> Profile
 						</DropdownMenuItem>
 						<DropdownMenuItem className="gap-2 text-sm cursor-pointer">

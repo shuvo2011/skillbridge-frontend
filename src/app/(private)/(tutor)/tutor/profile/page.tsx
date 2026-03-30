@@ -8,7 +8,6 @@ export default async function TutorProfilePage() {
 	const session = await getSession();
 	const profileRes = await tutorService.getMyProfile();
 	const profile = profileRes.data;
-	console.log("Profile response:", profileRes);
 	const user = {
 		name: session?.user?.name || "",
 		email: session?.user?.email || "",

@@ -1,6 +1,7 @@
 // components/module/student-profile/change-password-form.tsx
 "use client";
 
+import { changePassword } from "@/actions/user.action";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
@@ -31,7 +32,18 @@ export function StudentChangePasswordForm() {
 		onSubmit: async ({ value }) => {
 			const toastId = toast.loading("Updating password...");
 			try {
-				// TODO: changePassword action call
+				const toastId = toast.loading("Updating password...");
+
+				const result = await changePassword({
+					currentPassword: value.currentPassword,
+					newPassword: value.newPassword,
+				});
+
+				if (result.error) {
+					toast.error(result.error.message, { id: toastId });
+					return;
+				}
+
 				toast.success("Password Updated", { id: toastId });
 				form.reset();
 			} catch {
