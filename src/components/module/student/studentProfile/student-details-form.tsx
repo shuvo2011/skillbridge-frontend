@@ -22,11 +22,9 @@ type StudentProfile = {
 	bio?: string;
 	phone?: string;
 	address?: string;
-	profilePicture?: string;
 };
 
 export function StudentDetailsForm({ profile }: { profile?: StudentProfile }) {
-	const [preview, setPreview] = useState<string | null>(profile?.profilePicture ?? null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {

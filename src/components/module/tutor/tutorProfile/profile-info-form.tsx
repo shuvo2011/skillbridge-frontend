@@ -1,6 +1,7 @@
 // components/module/tutor-profile/profile-info-form.tsx
 "use client";
 
+import { updateUserInfo } from "@/actions/user.action";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
@@ -24,7 +25,11 @@ export function ProfileInfoForm({ user }: { user: { name: string; email: string 
 		onSubmit: async ({ value }) => {
 			const toastId = toast.loading("Updating profile...");
 			try {
-				// TODO: updateProfile action call
+				const res = await updateUserInfo(value);
+				if (res.error) {
+					toast.error(res.error.message, { id: toastId });
+					return;
+				}
 				toast.success("Profile Updated", { id: toastId });
 			} catch {
 				toast.error("Something Went Wrong", { id: toastId });
