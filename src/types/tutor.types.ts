@@ -33,6 +33,9 @@ export type Review = {
 	student: {
 		user: { name: string; image?: string | null };
 	};
+	reviewText?: string;
+	sessionDate?: string;
+	category?: { name: string };
 };
 
 export type TutorDetail = {
