@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, CalendarDays, Tag, Settings } from "lucide-react";
+import { LayoutDashboard, Users, CalendarDays, Tag, Settings, Clipboard } from "lucide-react";
 
 export type Role = "admin" | "tutor" | "student";
 
@@ -20,6 +20,7 @@ export const navConfig: Record<Role, NavItem[]> = {
 	tutor: [
 		{ href: "/tutor/dashboard", label: "Dashboard", icon: LayoutDashboard },
 		{ href: "/tutor/availability", label: "Availability", icon: CalendarDays },
+		{ href: "/tutor/sessions", label: "Teaching Sessions", icon: Clipboard },
 		{ href: "/tutor/profile", label: "Profile", icon: Users },
 		{ href: "/tutor/settings", label: "Settings", icon: Settings },
 	],
