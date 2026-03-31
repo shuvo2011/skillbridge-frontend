@@ -3,7 +3,7 @@
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, X } from "lucide-react";
-import { BRAND, CATEGORIES } from "./tutor-types";
+import { BRAND } from "./tutor-types";
 import { Filters } from "@/types/tutor.types";
 
 interface TutorFiltersProps {
@@ -11,9 +11,10 @@ interface TutorFiltersProps {
 	setFilter: (k: keyof Filters, v: string) => void;
 	clearAll: () => void;
 	filteredCount: number;
+	categories: string[];
 }
 
-export function TutorFilters({ filters, setFilter, clearAll, filteredCount }: TutorFiltersProps) {
+export function TutorFilters({ filters, setFilter, clearAll, filteredCount, categories }: TutorFiltersProps) {
 	const hasActive =
 		!!filters.search || filters.category !== "All" || filters.minExperience !== "0" || filters.sortBy !== "featured";
 
@@ -49,7 +50,7 @@ export function TutorFilters({ filters, setFilter, clearAll, filteredCount }: Tu
 			{/* Category pills */}
 			<div className="overflow-x-auto -mx-1 px-1" style={{ scrollbarWidth: "none" }}>
 				<div className="flex gap-2 pb-0.5 w-max sm:w-auto sm:flex-wrap">
-					{CATEGORIES.map((cat) => (
+					{categories.map((cat) => (
 						<button
 							key={cat}
 							onClick={() => setFilter("category", cat)}

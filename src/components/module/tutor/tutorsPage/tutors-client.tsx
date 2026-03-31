@@ -3,12 +3,12 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { BookOpen, X } from "lucide-react";
-import { BRAND, MOCK_TUTORS, PER_PAGE, avgRating } from "./tutor-types";
+import { BRAND, PER_PAGE, avgRating } from "./tutor-types";
 import { TutorCard, SkeletonCard } from "./tutor-card";
 import { TutorFilters } from "./tutor-filters";
 import { Filters, Tutor } from "@/types/tutor.types";
 
-export default function TutorsClient() {
+export default function TutorsClient({ tutors }: { tutors: Tutor[] }) {
 	const [filters, setFilters] = useState<Filters>({
 		search: "",
 		category: "All",
@@ -20,22 +20,25 @@ export default function TutorsClient() {
 	const [hasMore, setHasMore] = useState(true);
 	const loaderRef = useRef<HTMLDivElement>(null);
 
-	const filtered = MOCK_TUTORS.filter((t) => {
-		const q = filters.search.toLowerCase();
-		const matchSearch =
-			!q ||
-			t.user.name.toLowerCase().includes(q) ||
-			t.bio?.toLowerCase().includes(q) ||
-			t.tutorCategories.some((c) => c.category.name.toLowerCase().includes(q));
-		const matchCat = filters.category === "All" || t.tutorCategories.some((c) => c.category.name === filters.category);
-		const matchExp = (t.experienceYears ?? 0) >= parseInt(filters.minExperience);
-		return matchSearch && matchCat && matchExp;
-	}).sort((a, b) => {
-		if (filters.sortBy === "rating")
-			return parseFloat(avgRating(b.reviews) ?? "0") - parseFloat(avgRating(a.reviews) ?? "0");
-		if (filters.sortBy === "experience") return (b.experienceYears ?? 0) - (a.experienceYears ?? 0);
-		return Number(b.isFeatured) - Number(a.isFeatured);
-	});
+	const filtered = tutors
+		.filter((t) => {
+			const q = filters.search.toLowerCase();
+			const matchSearch =
+				!q ||
+				t.user.name.toLowerCase().includes(q) ||
+				t.bio?.toLowerCase().includes(q) ||
+				t.tutorCategories.some((c) => c.category.name.toLowerCase().includes(q));
+			const matchCat =
+				filters.category === "All" || t.tutorCategories.some((c) => c.category.name === filters.category);
+			const matchExp = (t.experienceYears ?? 0) >= parseInt(filters.minExperience);
+			return matchSearch && matchCat && matchExp;
+		})
+		.sort((a, b) => {
+			if (filters.sortBy === "rating")
+				return parseFloat(avgRating(b.reviews) ?? "0") - parseFloat(avgRating(a.reviews) ?? "0");
+			if (filters.sortBy === "experience") return (b.experienceYears ?? 0) - (a.experienceYears ?? 0);
+			return Number(b.isFeatured) - Number(a.isFeatured);
+		});
 
 	const loadMore = useCallback(() => {
 		if (loading || !hasMore) return;
@@ -81,6 +84,11 @@ export default function TutorsClient() {
 	const hasActive =
 		!!filters.search || filters.category !== "All" || filters.minExperience !== "0" || filters.sortBy !== "featured";
 
+	const allCategoryNames = [
+		"All",
+		...Array.from(new Set(tutors.flatMap((t) => t.tutorCategories.map((c) => c.category.name)))),
+	];
+
 	return (
 		<div className="min-h-screen bg-[#f7f6fb]">
 			<div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
@@ -95,12 +103,16 @@ export default function TutorsClient() {
 					<h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">
 						Find your perfect <span style={{ color: BRAND }}>tutor</span>
 					</h1>
-					<p className="text-sm text-gray-500 mt-1.5">
-						Browse {MOCK_TUTORS.length}+ verified tutors across all subjects
-					</p>
+					<p className="text-sm text-gray-500 mt-1.5">Browse {tutors.length}+ verified tutors across all subjects</p>
 				</div>
 
-				<TutorFilters filters={filters} setFilter={setFilter} clearAll={clearAll} filteredCount={filtered.length} />
+				<TutorFilters
+					filters={filters}
+					setFilter={setFilter}
+					clearAll={clearAll}
+					filteredCount={filtered.length}
+					categories={allCategoryNames}
+				/>
 
 				{!hasActive && visible.length > 0 && (
 					<p className="text-sm text-gray-500 mb-5">

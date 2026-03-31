@@ -4,6 +4,7 @@
 import { Tutor } from "@/types/tutor.types";
 import { BRAND, avgRating, initials, PER_PAGE } from "./tutor-types";
 import { Star, Clock, MapPin, GraduationCap, CalendarDays, UserRound } from "lucide-react";
+import Link from "next/link";
 
 export function SkeletonCard() {
 	return (
@@ -123,12 +124,13 @@ export function TutorCard({ tutor, index }: { tutor: Tutor; index: number }) {
 				<div className="border-t border-gray-100" />
 
 				<div className="flex gap-2">
-					<button
+					<Link
+						href={`/tutors/${tutor.id}`}
 						className="flex-1 flex items-center justify-center gap-1.5 h-10 rounded-xl border-2 text-[0.82rem] font-semibold transition-all hover:opacity-80"
 						style={{ borderColor: `${BRAND}30`, color: BRAND, background: `${BRAND}08` }}
 					>
 						<UserRound size={13} /> View Profile
-					</button>
+					</Link>
 					<button
 						className="flex-1 flex items-center justify-center gap-1.5 h-10 rounded-xl text-[0.82rem] font-bold text-white transition-all hover:opacity-90 shadow-md"
 						style={{ background: BRAND, boxShadow: `0 4px 14px ${BRAND}35` }}

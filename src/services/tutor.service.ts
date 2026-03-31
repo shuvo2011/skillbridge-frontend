@@ -1,5 +1,6 @@
 // services/tutor.service.ts
 import { env } from "@/env";
+import { Tutor } from "@/types/tutor.types";
 import { cookies } from "next/headers";
 
 export const tutorService = {
@@ -51,6 +52,29 @@ export const tutorService = {
 				return { data: null, error: { message: errorData.message || "Failed to update" } };
 			}
 
+			const data = await res.json();
+			return { data, error: null };
+		} catch {
+			return { data: null, error: { message: "Something Went Wrong" } };
+		}
+	},
+	getAllTutors: async () => {
+		try {
+			const res = await fetch(`${env.API_URL}/api/tutors`, {
+				next: { tags: ["tutors"] },
+			});
+			const data = await res.json();
+			return { data: data as Tutor[], error: null };
+		} catch {
+			return { data: null, error: { message: "Something Went Wrong" } };
+		}
+	},
+	getTutorById: async (id: string) => {
+		try {
+			const res = await fetch(`${env.API_URL}/api/tutors/${id}`, {
+				next: { tags: [`tutor-${id}`] },
+			});
+			if (!res.ok) return { data: null, error: { message: "Tutor not found" } };
 			const data = await res.json();
 			return { data, error: null };
 		} catch {
