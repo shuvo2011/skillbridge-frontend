@@ -10,6 +10,7 @@ export const updateTutorProfile = async (data: {
 	experienceYears?: number;
 	phone?: string;
 	address?: string;
+	price?: number;
 }) => {
 	const res = await tutorService.updateMyProfile(data);
 	revalidateTag("tutorProfile", "max");

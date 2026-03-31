@@ -9,17 +9,21 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "@tanstack/react-form";
-import { ImagePlus, X } from "lucide-react";
+import { ImagePlus } from "lucide-react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 
 const tutorDetailsSchema = z.object({
 	bio: z.string().max(1000, "Bio must be less than 1000 characters"),
-	qualification: z.string().max(255),
-	experienceYears: z.coerce.number().min(0).max(50),
-	phone: z.string().max(15),
-	address: z.string(),
+	qualification: z.string().max(255, "Qualification must be less than 255 characters"),
+	experienceYears: z.coerce
+		.number()
+		.min(0, "Experience cannot be negative")
+		.max(50, "Experience must be less than 50 years"),
+	phone: z.string().max(15, "Phone number must be less than 15 characters"),
+	address: z.string().max(255, "Address must be less than 255 characters"),
+	price: z.coerce.number().min(0, "Price cannot be negative").max(5000, "Price must be less than 5000 BDT"),
 });
 
 type TutorProfile = {
@@ -28,6 +32,7 @@ type TutorProfile = {
 	experienceYears?: number;
 	phone?: string;
 	address?: string;
+	price?: number;
 };
 
 export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorProfile; currentImage?: string | null }) {
@@ -53,7 +58,7 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 
 		const formData = new FormData();
 		formData.append("image", file);
-		formData.append("currentImageUrl", currentImage ?? ""); // ✅ পুরানো image URL
+		formData.append("currentImageUrl", currentImage ?? "");
 
 		const result = await updateProfilePicture(formData);
 		setUploading(false);
@@ -67,11 +72,6 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 		toast.success("Profile picture updated!", { id: toastId });
 	};
 
-	const handleRemoveImage = () => {
-		setPreview(null);
-		if (fileInputRef.current) fileInputRef.current.value = "";
-	};
-
 	const form = useForm({
 		defaultValues: {
 			bio: profile?.bio ?? "",
@@ -79,6 +79,7 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 			experienceYears: profile?.experienceYears ?? 0,
 			phone: profile?.phone ?? "",
 			address: profile?.address ?? "",
+			price: profile?.price ?? 0,
 		},
 		validators: { onSubmit: tutorDetailsSchema },
 		onSubmit: async ({ value }) => {
@@ -115,7 +116,6 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 							<div className="col-span-6">
 								<FieldLabel>Profile Picture</FieldLabel>
 								<div className="mt-2 flex items-center gap-4">
-									{/* শুধু image circle */}
 									<div className="relative w-20 h-20 rounded-full border-2 border-dashed border-gray-200 flex items-center justify-center overflow-hidden bg-gray-50">
 										{preview ? (
 											<img src={preview} alt="Profile" className="w-full h-full object-cover" />
@@ -124,7 +124,6 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 										)}
 									</div>
 
-									{/* Button আলাদা */}
 									<div className="flex flex-col gap-1">
 										<Button
 											type="button"
@@ -148,8 +147,8 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 								</div>
 							</div>
 
-							{/* Qualification */}
-							<div className="col-span-6 md:col-span-3">
+							{/* Qualification - Full Row */}
+							<div className="col-span-6">
 								<form.Field
 									name="qualification"
 									children={(field) => {
@@ -161,7 +160,7 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 													id={field.name}
 													value={field.state.value}
 													onChange={(e) => field.handleChange(e.target.value)}
-													placeholder="e.g. BSc Computer Science"
+													placeholder="e.g. BSc in Computer Science, University of Dhaka"
 												/>
 												{isInvalid && <FieldError errors={field.state.meta.errors} />}
 											</Field>
@@ -170,7 +169,7 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 								/>
 							</div>
 
-							{/* Experience */}
+							{/* Experience and Phone - 2 Columns */}
 							<div className="col-span-6 md:col-span-3">
 								<form.Field
 									name="experienceYears"
@@ -184,7 +183,7 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 													type="number"
 													value={field.state.value}
 													onChange={(e) => field.handleChange(Number(e.target.value))}
-													placeholder="e.g. 3"
+													placeholder="e.g. 5"
 												/>
 												{isInvalid && <FieldError errors={field.state.meta.errors} />}
 											</Field>
@@ -193,7 +192,6 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 								/>
 							</div>
 
-							{/* Phone */}
 							<div className="col-span-6 md:col-span-3">
 								<form.Field
 									name="phone"
@@ -215,8 +213,35 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 								/>
 							</div>
 
-							{/* Address */}
-							<div className="col-span-6 md:col-span-3">
+							{/* Price - Full Row */}
+							<div className="col-span-6">
+								<form.Field
+									name="price"
+									children={(field) => {
+										const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+										return (
+											<Field data-invalid={isInvalid}>
+												<FieldLabel htmlFor={field.name}>Hourly Rate (BDT)</FieldLabel>
+												<div className="relative">
+													<span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">৳</span>
+													<Input
+														id={field.name}
+														type="number"
+														value={field.state.value}
+														onChange={(e) => field.handleChange(Number(e.target.value))}
+														placeholder="e.g. 500"
+														className="pl-7"
+													/>
+												</div>
+												{isInvalid && <FieldError errors={field.state.meta.errors} />}
+											</Field>
+										);
+									}}
+								/>
+							</div>
+
+							{/* Address - Full Row */}
+							<div className="col-span-6">
 								<form.Field
 									name="address"
 									children={(field) => {
@@ -228,7 +253,7 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 													id={field.name}
 													value={field.state.value}
 													onChange={(e) => field.handleChange(e.target.value)}
-													placeholder="Your address"
+													placeholder="Your full address"
 												/>
 												{isInvalid && <FieldError errors={field.state.meta.errors} />}
 											</Field>
@@ -237,7 +262,7 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 								/>
 							</div>
 
-							{/* Bio */}
+							{/* Bio - Full Row */}
 							<div className="col-span-6">
 								<form.Field
 									name="bio"
@@ -250,7 +275,7 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 													id={field.name}
 													value={field.state.value}
 													onChange={(e) => field.handleChange(e.target.value)}
-													placeholder="Tell students about yourself..."
+													placeholder="Tell students about yourself, your teaching style, and what subjects you specialize in..."
 													rows={4}
 												/>
 												{isInvalid && <FieldError errors={field.state.meta.errors} />}

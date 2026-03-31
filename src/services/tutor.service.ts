@@ -30,6 +30,7 @@ export const tutorService = {
 		experienceYears?: number;
 		phone?: string;
 		address?: string;
+		price?: number;
 	}) => {
 		try {
 			const cookieStore = await cookies();

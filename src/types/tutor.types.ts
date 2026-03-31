@@ -34,8 +34,10 @@ export type Review = {
 		user: { name: string; image?: string | null };
 	};
 	reviewText?: string;
-	sessionDate?: string;
-	category?: { name: string };
+	booking?: {
+		sessionDate: string;
+		category?: { name: string };
+	};
 };
 
 export type TutorDetail = {

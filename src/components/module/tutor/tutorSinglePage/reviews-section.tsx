@@ -100,6 +100,8 @@ export function ReviewsSection({
 		}
 	};
 
+	console.log(reviews);
+
 	return (
 		<div className="flex flex-col gap-6">
 			{/* ── Review Form ── */}
@@ -268,21 +270,19 @@ export function ReviewsSection({
 										</div>
 									</div>
 									{/* Session info */}
-									{(review.category?.name || review.sessionDate) && (
-										<div className="flex items-center gap-2 mt-1">
-											{review.category?.name && (
-												<span
-													className="text-[0.65rem] font-semibold px-2 py-0.5 rounded-full border"
-													style={{ background: `${BRAND}10`, color: BRAND, borderColor: `${BRAND}20` }}
-												>
-													{review.category.name}
-												</span>
-											)}
-											{review.sessionDate && (
-												<span className="text-[0.68rem] text-gray-400">{formatDate(review.sessionDate)}</span>
-											)}
-										</div>
-									)}
+									<div className="flex gap-2 pt-1 items-center">
+										{review.booking?.category?.name && (
+											<span
+												className="text-[0.65rem] font-semibold px-2 py-0.5 rounded-full border"
+												style={{ background: `${BRAND}10`, color: BRAND, borderColor: `${BRAND}20` }}
+											>
+												{review.booking.category.name}
+											</span>
+										)}
+										{review.booking?.sessionDate && (
+											<span className="text-[0.68rem] text-gray-400">{formatDate(review.booking.sessionDate)}</span>
+										)}
+									</div>
 									{review.reviewText && (
 										<p className="text-xs text-gray-500 mt-1.5 leading-relaxed">{review.reviewText}</p>
 									)}
