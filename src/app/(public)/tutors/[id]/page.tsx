@@ -10,6 +10,6 @@ export default async function TutorDetailPage({ params }: { params: Promise<{ id
 	const [tutorRes, session] = await Promise.all([tutorService.getTutorById(id), getSession()]);
 
 	if (!tutorRes.data) notFound();
-
+	console.log(tutorRes);
 	return <TutorDetailClient tutor={tutorRes.data} session={session} />;
 }

@@ -142,7 +142,6 @@ export function BookingSection({ tutor, session }: { tutor: TutorDetail; session
 											style={{ transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)" }}
 										/>
 									</button>
-
 									{/* Slots */}
 									{isExpanded && (
 										<div className="px-3 pb-3 border-t border-gray-100">
@@ -170,7 +169,17 @@ export function BookingSection({ tutor, session }: { tutor: TutorDetail; session
 						})}
 					</div>
 				)}
-
+				{selectedSlot && tutor.price && (
+					<div
+						className="mt-3 px-3 py-2.5 rounded-xl flex items-center justify-between"
+						style={{ background: `${BRAND}08`, border: `1px solid ${BRAND}20` }}
+					>
+						<span className="text-xs text-gray-500">Session fee</span>
+						<span className="text-sm font-bold" style={{ color: BRAND }}>
+							৳ {tutor.price}
+						</span>
+					</div>
+				)}
 				{/* Category select */}
 				{selectedSlot && (
 					<div className="mt-4">

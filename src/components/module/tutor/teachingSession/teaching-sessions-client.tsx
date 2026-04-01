@@ -39,6 +39,7 @@ type Session = {
 		availableTo: string;
 	};
 	category?: { id: string; name: string };
+	price?: number;
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -201,6 +202,7 @@ export default function TeachingSessionsClient({ sessions }: { sessions: Session
 							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Date</TableHead>
 							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Time</TableHead>
 							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Day</TableHead>
+							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Price</TableHead>
 							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Status</TableHead>
 							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide pr-5 text-right">
 								Action
@@ -300,7 +302,15 @@ export default function TeachingSessionsClient({ sessions }: { sessions: Session
 													session.availability.dayOfWeek.slice(1).toLowerCase()}
 											</span>
 										</TableCell>
-
+										<TableCell className="py-3.5">
+											{session.price ? (
+												<span className="text-sm font-semibold" style={{ color: BRAND }}>
+													৳ {session.price}
+												</span>
+											) : (
+												<span className="text-xs text-gray-400">—</span>
+											)}
+										</TableCell>
 										{/* Status */}
 										<TableCell className="py-3.5">
 											<span

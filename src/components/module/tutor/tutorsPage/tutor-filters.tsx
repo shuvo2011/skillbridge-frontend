@@ -92,7 +92,17 @@ export function TutorFilters({ filters, setFilter, clearAll, filteredCount, cate
 						<SelectItem value="8">8+ years</SelectItem>
 					</SelectContent>
 				</Select>
-
+				<Select value={filters.maxPrice} onValueChange={(v) => setFilter("maxPrice", v)}>
+					<SelectTrigger className="h-9 w-[145px] text-xs border-gray-200 bg-gray-50">
+						<SelectValue placeholder="Max Price" />
+					</SelectTrigger>
+					<SelectContent>
+						<SelectItem value="0">Any price</SelectItem>
+						<SelectItem value="500">Under ৳500</SelectItem>
+						<SelectItem value="1000">Under ৳1000</SelectItem>
+						<SelectItem value="2000">Under ৳2000</SelectItem>
+					</SelectContent>
+				</Select>
 				<Select value={filters.sortBy} onValueChange={(v) => setFilter("sortBy", v)}>
 					<SelectTrigger className="h-9 w-36 text-xs border-gray-200 bg-gray-50">
 						<SelectValue placeholder="Sort by" />
@@ -101,6 +111,8 @@ export function TutorFilters({ filters, setFilter, clearAll, filteredCount, cate
 						<SelectItem value="featured">Featured first</SelectItem>
 						<SelectItem value="rating">Top rated</SelectItem>
 						<SelectItem value="experience">Most experienced</SelectItem>
+						<SelectItem value="price_low">Price: Low to High</SelectItem> {/* ← add */}
+						<SelectItem value="price_high">Price: High to Low</SelectItem>
 					</SelectContent>
 				</Select>
 

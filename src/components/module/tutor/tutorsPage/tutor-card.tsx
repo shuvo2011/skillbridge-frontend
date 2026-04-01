@@ -92,6 +92,14 @@ export function TutorCard({ tutor, index }: { tutor: Tutor; index: number }) {
 				{tutor.bio && <p className="text-[0.79rem] text-gray-500 leading-relaxed line-clamp-2">{tutor.bio}</p>}
 
 				<div className="flex flex-wrap gap-2">
+					{tutor.price && (
+						<span
+							className="inline-flex items-center gap-1.5 text-[0.72rem] font-bold bg-white border border-gray-100 px-2.5 py-1 rounded-lg shadow-sm"
+							style={{ color: BRAND }}
+						>
+							৳ {tutor.price}
+						</span>
+					)}
 					{tutor.experienceYears !== undefined && (
 						<span className="inline-flex items-center gap-1.5 text-[0.72rem] text-gray-600 bg-white border border-gray-100 px-2.5 py-1 rounded-lg font-medium shadow-sm">
 							<Clock size={10} style={{ color: BRAND }} /> {tutor.experienceYears} yrs exp

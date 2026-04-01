@@ -14,6 +14,7 @@ export default function TutorsClient({ tutors }: { tutors: Tutor[] }) {
 		category: "All",
 		minExperience: "0",
 		sortBy: "featured",
+		maxPrice: "0",
 	});
 	const [visible, setVisible] = useState<Tutor[]>([]);
 	const [loading, setLoading] = useState(false);
@@ -31,12 +32,15 @@ export default function TutorsClient({ tutors }: { tutors: Tutor[] }) {
 			const matchCat =
 				filters.category === "All" || t.tutorCategories.some((c) => c.category.name === filters.category);
 			const matchExp = (t.experienceYears ?? 0) >= parseInt(filters.minExperience);
-			return matchSearch && matchCat && matchExp;
+			const matchPrice = filters.maxPrice === "0" || (t.price ? t.price <= parseInt(filters.maxPrice) : true);
+			return matchSearch && matchCat && matchExp && matchPrice;
 		})
 		.sort((a, b) => {
 			if (filters.sortBy === "rating")
 				return parseFloat(avgRating(b.reviews) ?? "0") - parseFloat(avgRating(a.reviews) ?? "0");
 			if (filters.sortBy === "experience") return (b.experienceYears ?? 0) - (a.experienceYears ?? 0);
+			if (filters.sortBy === "price_low") return (a.price ?? 0) - (b.price ?? 0);
+			if (filters.sortBy === "price_high") return (b.price ?? 0) - (a.price ?? 0);
 			return Number(b.isFeatured) - Number(a.isFeatured);
 		});
 
@@ -80,9 +84,14 @@ export default function TutorsClient({ tutors }: { tutors: Tutor[] }) {
 	}, [loadMore]);
 
 	const setFilter = (k: keyof Filters, v: string) => setFilters((p) => ({ ...p, [k]: v }));
-	const clearAll = () => setFilters({ search: "", category: "All", minExperience: "0", sortBy: "featured" });
+	const clearAll = () =>
+		setFilters({ search: "", category: "All", minExperience: "0", sortBy: "featured", maxPrice: "0" });
 	const hasActive =
-		!!filters.search || filters.category !== "All" || filters.minExperience !== "0" || filters.sortBy !== "featured";
+		!!filters.search ||
+		filters.category !== "All" ||
+		filters.minExperience !== "0" ||
+		filters.sortBy !== "featured" ||
+		filters.maxPrice !== "0";
 
 	const allCategoryNames = [
 		"All",

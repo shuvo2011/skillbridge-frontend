@@ -7,6 +7,7 @@ export type Tutor = {
 	experienceYears?: number;
 	phone?: string;
 	address?: string;
+	price?: number;
 	isFeatured: boolean;
 	tutorCategories: { id: string; category: { id: string; name: string } }[];
 	reviews: { rating: number }[];
@@ -17,6 +18,7 @@ export type Filters = {
 	category: string;
 	minExperience: string;
 	sortBy: string;
+	maxPrice: string;
 };
 
 export type Availability = {
@@ -49,6 +51,7 @@ export type TutorDetail = {
 	phone?: string;
 	address?: string;
 	isFeatured: boolean;
+	price?: number;
 	user: { name: string; email: string; image?: string | null };
 	tutorCategories: { id: string; category: { id: string; name: string } }[];
 	availability: Availability[];

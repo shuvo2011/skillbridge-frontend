@@ -86,6 +86,14 @@ export function TutorDetailClient({ tutor, session }: { tutor: TutorDetail; sess
 
 								{/* Meta */}
 								<div className="flex flex-wrap gap-2 mt-3">
+									{tutor.price && (
+										<span
+											className="inline-flex items-center gap-1.5 text-xs font-bold bg-gray-50 border border-gray-100 px-2.5 py-1 rounded-lg"
+											style={{ color: BRAND }}
+										>
+											৳ {tutor.price} / session
+										</span>
+									)}
 									{tutor.experienceYears !== undefined && (
 										<span className="inline-flex items-center gap-1.5 text-xs text-gray-600 bg-gray-50 border border-gray-100 px-2.5 py-1 rounded-lg font-medium">
 											<Clock size={11} style={{ color: BRAND }} /> {tutor.experienceYears} yrs exp
