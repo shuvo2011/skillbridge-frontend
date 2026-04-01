@@ -11,6 +11,7 @@ export type Tutor = {
 	isFeatured: boolean;
 	tutorCategories: { id: string; category: { id: string; name: string } }[];
 	reviews: { rating: number }[];
+	image?: string;
 };
 
 export type Filters = {

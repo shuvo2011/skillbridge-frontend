@@ -42,6 +42,7 @@ type Booking = {
 		availableTo: string;
 	};
 	category?: { name: string };
+	price?: string | number;
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -206,6 +207,7 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Date</TableHead>
 							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Time</TableHead>
 							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Day</TableHead>
+							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Price</TableHead>
 							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Status</TableHead>
 							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide pr-5 text-right">
 								Action
@@ -305,7 +307,16 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 													booking.availability.dayOfWeek.slice(1).toLowerCase()}
 											</span>
 										</TableCell>
-
+										{/* Price */}
+										<TableCell className="py-3.5">
+											{booking.price ? (
+												<span className="text-sm font-semibold" style={{ color: BRAND }}>
+													৳ {booking.price}
+												</span>
+											) : (
+												<span className="text-xs text-gray-400">—</span>
+											)}
+										</TableCell>
 										{/* Status */}
 										<TableCell className="py-3.5">
 											<span

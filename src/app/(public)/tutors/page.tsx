@@ -7,5 +7,7 @@ import { Tutor } from "@/types/tutor.types";
 export default async function TutorsPage() {
 	const res = await tutorService.getAllTutors();
 	const tutors: Tutor[] = res.data || [];
+
+	console.log(res);
 	return <TutorsClient tutors={tutors} />;
 }

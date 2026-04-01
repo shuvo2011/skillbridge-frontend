@@ -78,8 +78,14 @@ export default function Topbar({ onMenuClick, user, onLogout }: TopbarProps) {
 							</Badge>
 						</div>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem className="text-sm cursor-pointer">
-							<Users className="w-4 h-4" /> Profile
+						<DropdownMenuItem className="text-sm cursor-pointer" asChild>
+							<Link
+								href={
+									user.role === "admin" ? "/admin" : user.role === "tutor" ? "/tutor/profile" : "/dashboard/profile"
+								}
+							>
+								<Users className="w-4 h-4" /> Profile
+							</Link>
 						</DropdownMenuItem>
 						<DropdownMenuItem className="gap-2 text-sm cursor-pointer">
 							<Settings className="w-4 h-4" /> Settings

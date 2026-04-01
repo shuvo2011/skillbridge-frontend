@@ -12,7 +12,7 @@ type Session = { user: { name: string; email: string; role: string } } | null;
 
 export function TutorDetailClient({ tutor, session }: { tutor: TutorDetail; session: Session }) {
 	const rating = avgRating(tutor.reviews);
-	console.log(tutor);
+	// console.log(tutor);
 	return (
 		<div className="min-h-screen bg-[#f7f6fb]">
 			<div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">

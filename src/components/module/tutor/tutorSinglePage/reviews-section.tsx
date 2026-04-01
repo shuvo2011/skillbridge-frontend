@@ -100,7 +100,7 @@ export function ReviewsSection({
 		}
 	};
 
-	console.log(reviews);
+	// console.log(reviews);
 
 	return (
 		<div className="flex flex-col gap-6">
@@ -248,11 +248,21 @@ export function ReviewsSection({
 					<div className="flex flex-col gap-4">
 						{reviews.map((review) => (
 							<div key={review.id} className="flex gap-3 pb-4 border-b border-gray-50 last:border-0">
-								<div
-									className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs font-bold"
-									style={{ background: `${BRAND}15`, color: BRAND }}
-								>
-									{review.student.user.name.charAt(0).toUpperCase()}
+								<div className="w-8 h-8 rounded-full shrink-0 overflow-hidden">
+									{review.student.user.image ? (
+										<img
+											src={review.student.user.image}
+											alt={review.student.user.name}
+											className="w-full h-full object-cover"
+										/>
+									) : (
+										<div
+											className="w-full h-full flex items-center justify-center text-xs font-bold"
+											style={{ background: `${BRAND}15`, color: BRAND }}
+										>
+											{review.student.user.name.charAt(0).toUpperCase()}
+										</div>
+									)}
 								</div>
 								<div className="flex-1">
 									<div className="flex items-center justify-between">
