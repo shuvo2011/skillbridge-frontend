@@ -9,6 +9,8 @@ type Session = {
 		email: string;
 		role: string;
 		image?: string | null;
+		banned?: boolean;
+		banReason?: string;
 	};
 } | null;
 

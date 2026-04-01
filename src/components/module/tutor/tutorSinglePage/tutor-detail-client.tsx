@@ -8,7 +8,7 @@ import { ReviewsSection } from "./reviews-section";
 import Link from "next/link";
 import { BRAND, avgRating, initials } from "../tutorsPage/tutor-types";
 
-type Session = { user: { name: string; email: string; role: string } } | null;
+type Session = { user: { name: string; email: string; role: string; banned: boolean } } | null;
 
 export function TutorDetailClient({ tutor, session }: { tutor: TutorDetail; session: Session }) {
 	const rating = avgRating(tutor.reviews);
@@ -47,7 +47,14 @@ export function TutorDetailClient({ tutor, session }: { tutor: TutorDetail; sess
 
 								<div className="flex items-start justify-between flex-wrap gap-2">
 									<div>
-										<h1 className="text-xl font-bold text-gray-900">{tutor.user.name}</h1>
+										<div className="flex items-center gap-2 flex-wrap">
+											<h1 className="text-xl font-bold text-gray-900">{tutor.user.name}</h1>
+											{tutor.user.banned && (
+												<span className="text-[0.65rem] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider bg-red-100 text-red-600 border border-red-200">
+													Banned
+												</span>
+											)}
+										</div>
 										{tutor.qualification && (
 											<p className="flex items-center gap-1.5 text-sm text-gray-500 mt-0.5">
 												<GraduationCap size={13} style={{ color: BRAND }} />
@@ -145,7 +152,19 @@ export function TutorDetailClient({ tutor, session }: { tutor: TutorDetail; sess
 
 					{/* ── Right column — Booking ── */}
 					<div className="lg:col-span-1">
-						<BookingSection tutor={tutor} session={session} />
+						{tutor.user.banned ? (
+							<div className="bg-white rounded-2xl border border-red-100 shadow-sm p-6 flex flex-col items-center text-center gap-3">
+								<div className="w-12 h-12 rounded-full bg-red-50 border border-red-100 flex items-center justify-center">
+									<span className="text-red-400 text-xl">🚫</span>
+								</div>
+								<h3 className="font-semibold text-gray-800 text-sm">Booking Unavailable</h3>
+								<p className="text-xs text-gray-400 leading-relaxed">
+									This tutor's account has been suspended. Booking is currently not available.
+								</p>
+							</div>
+						) : (
+							<BookingSection tutor={tutor} session={session} />
+						)}
 					</div>
 				</div>
 			</div>

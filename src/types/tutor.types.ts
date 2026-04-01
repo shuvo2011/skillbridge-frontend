@@ -1,7 +1,7 @@
 export type Tutor = {
 	id: string;
 	userId: string;
-	user: { name: string; email: string; image?: string | null };
+	user: { name: string; email: string; image?: string | null; banned?: boolean };
 	bio?: string;
 	qualification?: string;
 	experienceYears?: number;

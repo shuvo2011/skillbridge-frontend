@@ -65,7 +65,14 @@ export function TutorCard({ tutor, index }: { tutor: Tutor; index: number }) {
 			{/* Body */}
 			<div className="px-5 pt-10 pb-5 flex flex-col gap-3">
 				<div>
-					<h3 className="font-bold text-[1rem] text-gray-900 leading-tight">{tutor.user.name}</h3>
+					<div className="flex items-center gap-2 flex-wrap">
+						<h3 className="font-bold text-[1rem] text-gray-900 leading-tight">{tutor.user.name}</h3>
+						{tutor.user.banned && (
+							<span className="text-[0.6rem] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-500 border border-red-200">
+								Banned
+							</span>
+						)}
+					</div>
 					{tutor.qualification && (
 						<p className="flex items-center gap-1.5 text-[0.76rem] text-gray-500 mt-0.5">
 							<GraduationCap size={11} style={{ color: BRAND }} className="shrink-0" />
@@ -140,7 +147,8 @@ export function TutorCard({ tutor, index }: { tutor: Tutor; index: number }) {
 						<UserRound size={13} /> View Profile
 					</Link>
 					<button
-						className="flex-1 flex items-center justify-center gap-1.5 h-10 rounded-xl text-[0.82rem] font-bold text-white transition-all hover:opacity-90 shadow-md"
+						disabled={tutor.user.banned}
+						className="flex-1 flex items-center justify-center gap-1.5 h-10 rounded-xl text-[0.82rem] font-bold text-white transition-all hover:opacity-90 shadow-md disabled:opacity-40 disabled:cursor-not-allowed"
 						style={{ background: BRAND, boxShadow: `0 4px 14px ${BRAND}35` }}
 					>
 						<CalendarDays size={13} /> Book Now
