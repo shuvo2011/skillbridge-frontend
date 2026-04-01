@@ -48,4 +48,27 @@ export const adminService = {
 			return { data: null, error: { message: "Something Went Wrong" } };
 		}
 	},
+	getAllBookings: async (params?: { search?: string; status?: string }) => {
+		try {
+			const cookieStore = await cookies();
+			const cookieHeader = cookieStore
+				.getAll()
+				.map((c) => `${c.name}=${c.value}`)
+				.join("; ");
+
+			const url = new URL(`${env.API_URL}/api/admin/bookings`);
+			if (params?.search) url.searchParams.append("search", params.search);
+			if (params?.status) url.searchParams.append("status", params.status);
+
+			const res = await fetch(url.toString(), {
+				headers: { Cookie: cookieHeader },
+				next: { tags: ["adminBookings"] },
+			});
+
+			const data = await res.json();
+			return { data: data.data, error: null };
+		} catch {
+			return { data: null, error: { message: "Something Went Wrong" } };
+		}
+	},
 };
