@@ -108,7 +108,7 @@ export const tutorService = {
 				.getAll()
 				.map((c) => `${c.name}=${c.value}`)
 				.join("; ");
-
+			console.log("Cookie header:", cookieHeader ? "has cookies" : "empty");
 			const res = await fetch(`${env.API_URL}/api/tutors/stats`, {
 				headers: { Cookie: cookieHeader },
 				cache: "no-store",
