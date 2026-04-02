@@ -1,36 +1,176 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SkillBridge Frontend 🎓
+
+Next.js frontend for SkillBridge — a platform that connects students with expert tutors.
+
+## Links
+
+| | URL |
+|--|-----|
+| **Frontend Repo** | https://github.com/shuvo2011/skillbridge-frontend |
+| **Backend Repo** | https://github.com/shuvo2011/skillbridge-backend |
+| **Frontend Live** | https://skillbridge.vercel.app |
+| **Backend Live** | https://skillbridge-api.vercel.app |
+| **Demo Video** | https://drive.google.com/file/d/xxx/view |
+
+## Admin Credentials
+
+```
+Email    : rahim@skillbridge.com
+Password : Pa$$w0rd!
+```
+
+---
+
+## Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| Next.js 16 | App Router, SSR/SSG |
+| TypeScript | Type safety |
+| Tailwind CSS v4 | Styling |
+| Radix UI + shadcn/ui | UI Components |
+| Better Auth | Authentication |
+| TanStack Form | Form management |
+| Recharts | Charts & analytics |
+| Zod | Schema validation |
+| Cloudinary | Image uploads |
+| Sonner | Toast notifications |
+| SweetAlert2 | Confirmation dialogs |
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- pnpm
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone the repository
+git clone https://github.com/shuvo2011/skillbridge-frontend
+cd skillbridge-frontend
+
+# Install dependencies
+pnpm install
+
+# Copy environment variables
+cp .env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env.local` file in the root directory:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+API_URL=http://localhost:5050
+FRONTEND_URL=http://localhost:3000
+BETTER_AUTH_URL=http://localhost:3000
+AUTH_URL=http://localhost:5050/api/auth
 
-## Learn More
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Run the App
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Development
+pnpm dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+App runs on `http://localhost:3000`
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Pages & Routes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Public Routes
+
+| Route | Description |
+|-------|-------------|
+| `/` | Home — hero, features, popular tutors, newsletter |
+| `/tutors` | Browse tutors with filters |
+| `/tutors/:id` | Tutor profile — details, reviews, book |
+| `/about` | About SkillBridge |
+| `/contact-us` | Contact form |
+| `/terms` | Terms & Conditions |
+| `/privacy` | Privacy Policy |
+| `/login` | Login |
+| `/register` | Register |
+
+### Student Routes (Private)
+
+| Route | Description |
+|-------|-------------|
+| `/dashboard` | Overview & stats |
+| `/dashboard/bookings` | My bookings |
+| `/dashboard/profile` | Edit profile |
+
+### Tutor Routes (Private)
+
+| Route | Description |
+|-------|-------------|
+| `/tutor/dashboard` | Sessions & stats |
+| `/tutor/availability` | Set time slots |
+| `/tutor/profile` | Edit tutor info |
+| `/tutor/sessions` | View all sessions |
+
+### Admin Routes (Private)
+
+| Route | Description |
+|-------|-------------|
+| `/admin` | Dashboard & statistics |
+| `/admin/users` | Manage users (ban/unban, feature tutors) |
+| `/admin/bookings` | All bookings |
+| `/admin/categories` | Manage categories |
+
+---
+
+## Project Structure
+
+```
+src/
+├── actions/              # Server actions
+│   ├── admin.action.ts
+│   ├── availability.action.ts
+│   ├── booking.action.ts
+│   ├── category.action.ts
+│   ├── student.action.ts
+│   ├── tutor-category.action.ts
+│   ├── tutor.action.ts
+│   ├── update-profile-picture.ts
+│   └── user.action.ts
+├── app/
+│   ├── (auth)/           # Login, Register
+│   ├── (private)/        # Admin, Student, Tutor dashboards
+│   └── (public)/         # Home, Tutors, About, Contact, etc.
+├── components/
+│   ├── common/           # Shared components (StatCard, Navbar, etc.)
+│   ├── home/             # Home page sections
+│   ├── layout/           # Dashboard layout, Sidebar, Topbar
+│   ├── module/           # Feature modules (admin, student, tutor)
+│   └── ui/               # shadcn/ui primitives
+├── hooks/                # Custom React hooks
+├── lib/
+│   ├── auth-client.ts
+│   ├── cloudinary.ts
+│   ├── get-session.ts
+│   └── utils.ts
+├── services/             # API service functions
+│   ├── admin.service.ts
+│   ├── availability.service.ts
+│   ├── booking.service.ts
+│   ├── category.service.ts
+│   ├── review.service.ts
+│   ├── student.service.ts
+│   ├── tutor-category.service.ts
+│   ├── tutor.service.ts
+│   └── user.service.ts
+└── types/
+    ├── category.type.ts
+    └── tutor.types.ts
+```
