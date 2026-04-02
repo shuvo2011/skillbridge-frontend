@@ -26,6 +26,7 @@ interface TopbarProps {
 }
 
 export default function Topbar({ onMenuClick, user, onLogout }: TopbarProps) {
+	console.log(user);
 	return (
 		<header className="h-16 border-b border-border bg-white flex items-center px-4 lg:px-6 gap-4 sticky top-0 z-20">
 			{/* Mobile menu toggle */}
@@ -81,14 +82,15 @@ export default function Topbar({ onMenuClick, user, onLogout }: TopbarProps) {
 						<DropdownMenuItem className="text-sm cursor-pointer" asChild>
 							<Link
 								href={
-									user.role === "admin" ? "/admin" : user.role === "tutor" ? "/tutor/profile" : "/dashboard/profile"
+									(user.role as string) === "ADMIN"
+										? "/admin"
+										: (user.role as string) === "TUTOR"
+											? "/tutor/profile"
+											: "/dashboard/profile"
 								}
 							>
 								<Users className="w-4 h-4" /> Profile
 							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem className="gap-2 text-sm cursor-pointer">
-							<Settings className="w-4 h-4" /> Settings
 						</DropdownMenuItem>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem

@@ -1,6 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import { Twitter, Linkedin, Instagram, Dribbble } from "lucide-react";
 import { Logo } from "../common/logo";
+import Link from "next/link";
 
 type FooterData = {
 	title: string;
@@ -15,24 +16,20 @@ const footerSections: FooterData[] = [
 		title: "Sitemap",
 		links: [
 			{
-				title: "Contact us",
-				href: "#",
+				title: "Home",
+				href: "/",
 			},
 			{
 				title: "About us",
-				href: "#",
+				href: "/about",
 			},
 			{
-				title: "Work",
-				href: "#",
+				title: "Tutors",
+				href: "/tutors",
 			},
 			{
-				title: "Services",
-				href: "#",
-			},
-			{
-				title: "Pricing",
-				href: "#",
+				title: "Contact us",
+				href: "/contact-us",
 			},
 		],
 	},
@@ -41,15 +38,15 @@ const footerSections: FooterData[] = [
 		links: [
 			{
 				title: "Error 404",
-				href: "#",
+				href: "/error",
 			},
 			{
 				title: "Terms & Conditions",
-				href: "#",
+				href: "/terms",
 			},
 			{
 				title: "Privacy Policy",
-				href: "#",
+				href: "/privacy",
 			},
 		],
 	},
@@ -74,16 +71,36 @@ const Footer = () => {
 
 								{/* social links */}
 								<div className="flex items-center gap-4">
-									<a href="#" className="text-muted-foreground hover:text-foreground">
+									<a
+										href="https://twitter.com/skillbridge"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-muted-foreground hover:text-foreground"
+									>
 										<Twitter size={20} />
 									</a>
-									<a href="#" className="text-muted-foreground hover:text-foreground">
+									<a
+										href="https://linkedin.com/company/skillbridge"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-muted-foreground hover:text-foreground"
+									>
 										<Linkedin size={20} />
 									</a>
-									<a href="#" className="text-muted-foreground hover:text-foreground">
+									<a
+										href="https://dribbble.com/skillbridge"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-muted-foreground hover:text-foreground"
+									>
 										<Dribbble size={20} />
 									</a>
-									<a href="#" className="text-muted-foreground hover:text-foreground">
+									<a
+										href="https://instagram.com/skillbridge"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-muted-foreground hover:text-foreground"
+									>
 										<Instagram size={20} />
 									</a>
 								</div>
@@ -99,9 +116,9 @@ const Footer = () => {
 									<ul className="flex flex-col gap-3">
 										{links.map(({ title, href }) => (
 											<li key={title}>
-												<a href={href} className="text-base font-normal text-muted-foreground hover:text-foreground">
+												<Link href={href} className="text-base font-normal text-muted-foreground hover:text-foreground">
 													{title}
-												</a>
+												</Link>
 											</li>
 										))}
 									</ul>

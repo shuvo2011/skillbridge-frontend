@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Star, GraduationCap, Users } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const cards = [
 	{
@@ -122,9 +123,11 @@ export default function TrustedByStudents() {
 						</div>
 					</div>
 
-					<Button className="mt-2 w-fit bg-brand-violet hover:bg-brand-navy text-white px-8 py-5 rounded-xl font-semibold shadow-lg shadow-brand-violet/25 transition-all duration-200">
-						Learn more
-					</Button>
+					<Link href={`/about`}>
+						<Button className="mt-2 w-fit bg-brand-violet hover:bg-brand-navy text-white px-8 py-5 rounded-xl font-semibold shadow-lg shadow-brand-violet/25 transition-all duration-200">
+							Learn more
+						</Button>
+					</Link>
 				</div>
 			</div>
 		</section>
