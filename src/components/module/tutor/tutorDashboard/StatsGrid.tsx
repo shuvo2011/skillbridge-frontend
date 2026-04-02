@@ -1,12 +1,17 @@
 import { BookOpen, CheckCircle, XCircle, Clock, DollarSign, Users } from "lucide-react";
-
 import { SessionBreakdownChart } from "./SessionBreakdownChart";
-import { tutorService } from "@/services/tutor.service";
 import { StatCard } from "@/components/common/StatCard";
 
-export async function StatsGrid() {
-	const stats = await tutorService.getTutorStats();
+type Stats = {
+	totalSessions: number;
+	confirmedSessions: number;
+	completedSessions: number;
+	cancelledSessions: number;
+	totalRevenue: number;
+	totalStudents: number;
+} | null;
 
+export function StatsGrid({ stats }: { stats: Stats }) {
 	if (stats === null) {
 		return (
 			<div className="bg-red-50 border border-red-100 rounded-xl px-5 py-4 text-sm text-red-500">
@@ -73,7 +78,6 @@ export async function StatsGrid() {
 					<StatCard key={card.label} {...card} />
 				))}
 			</div>
-
 			<SessionBreakdownChart
 				confirmed={stats.confirmedSessions}
 				completed={stats.completedSessions}

@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/get-session";
 import { ShieldX, Mail } from "lucide-react";
 import { StatsGrid } from "@/components/module/tutor/tutorDashboard/StatsGrid";
+import { tutorService } from "@/services/tutor.service";
 
 export default async function TutorDashboardPage() {
 	const session = await getSession();
@@ -34,14 +35,14 @@ export default async function TutorDashboardPage() {
 			</div>
 		);
 	}
-
+	const stats = await tutorService.getTutorStats();
 	return (
 		<div className="p-6 max-w-6xl mx-auto">
 			<div className="mb-8">
 				<h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
 				<p className="text-sm text-gray-500 mt-1">Welcome back! Here's an overview of your tutoring activity.</p>
 			</div>
-			<StatsGrid />
+			<StatsGrid stats={stats} />
 		</div>
 	);
 }

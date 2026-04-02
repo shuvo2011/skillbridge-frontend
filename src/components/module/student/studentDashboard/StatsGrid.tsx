@@ -1,11 +1,16 @@
 import { BookOpen, CheckCircle, XCircle, Clock, Users } from "lucide-react";
 import { StatCard } from "@/components/common/StatCard";
 import { BookingBreakdownChart } from "./BookingBreakdownChart";
-import { studentService } from "@/services/student.service";
 
-export async function StatsGrid() {
-	const stats = await studentService.getMyStats();
+type Stats = {
+	totalBookings: number;
+	confirmedBookings: number;
+	completedBookings: number;
+	cancelledBookings: number;
+	uniqueTutors: number;
+} | null;
 
+export function StatsGrid({ stats }: { stats: Stats }) {
 	if (stats === null) {
 		return (
 			<div className="bg-red-50 border border-red-100 rounded-xl px-5 py-4 text-sm text-red-500">
@@ -64,7 +69,6 @@ export async function StatsGrid() {
 					<StatCard key={card.label} {...card} />
 				))}
 			</div>
-
 			<BookingBreakdownChart
 				confirmed={stats.confirmedBookings}
 				completed={stats.completedBookings}
