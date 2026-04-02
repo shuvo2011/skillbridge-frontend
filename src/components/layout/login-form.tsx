@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldSeparator } from "@/components/ui/field";
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import * as z from "zod";
@@ -37,12 +37,25 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"form">)
 				}
 
 				toast.success("Logged in successfully", { id: toastId });
-				const role = (data?.user as any)?.role;
+
 				router.refresh();
-				if (role === "STUDENT") router.push("/dashboard");
-				else if (role === "TUTOR") router.push("/tutor/dashboard");
-				else if (role === "ADMIN") router.push("/admin");
-			} catch (err) {
+				await new Promise((resolve) => setTimeout(resolve, 500));
+				const role = (data?.user as any)?.role;
+
+				if (role === "STUDENT") {
+					router.push("/dashboard");
+				} else if (role === "TUTOR") {
+					router.push("/tutor/dashboard");
+				} else if (role === "ADMIN") {
+					router.push("/admin");
+				} else {
+					const session = await authClient.getSession();
+					const sessionRole = (session?.data?.user as any)?.role;
+					if (sessionRole === "STUDENT") router.push("/dashboard");
+					else if (sessionRole === "TUTOR") router.push("/tutor/dashboard");
+					else if (sessionRole === "ADMIN") router.push("/admin");
+				}
+			} catch {
 				toast.error("Something went wrong, please try again.", { id: toastId });
 			}
 		},
