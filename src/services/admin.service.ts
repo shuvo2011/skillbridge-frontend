@@ -109,4 +109,24 @@ export const adminService = {
 			return { data: null, error: { message: "Something Went Wrong" } };
 		}
 	},
+	toggleTutorFeatured: async (tutorProfileId: string) => {
+		try {
+			const cookieStore = await cookies();
+			const cookieHeader = cookieStore
+				.getAll()
+				.map((c) => `${c.name}=${c.value}`)
+				.join("; ");
+
+			const res = await fetch(`${env.API_URL}/api/tutors/${tutorProfileId}/featured`, {
+				method: "PATCH",
+				headers: { Cookie: cookieHeader },
+			});
+
+			const data = await res.json();
+			if (!res.ok) return { data: null, error: { message: data.message || "Failed" } };
+			return { data: data.data, error: null };
+		} catch {
+			return { data: null, error: { message: "Something Went Wrong" } };
+		}
+	},
 };

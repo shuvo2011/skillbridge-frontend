@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { updateUserStatusAction } from "@/actions/admin.action";
+import { toggleTutorFeaturedAction, updateUserStatusAction } from "@/actions/admin.action";
 import Swal from "sweetalert2";
 
 const BRAND = "#210095";
@@ -23,6 +23,8 @@ type User = {
 	emailVerified: boolean;
 	createdAt: string;
 	image?: string | null;
+	tutorProfileId?: string | null; // ← নতুন
+	isFeatured?: boolean;
 };
 
 const ROLE_FILTERS = ["All", "STUDENT", "TUTOR"] as const;
@@ -123,7 +125,19 @@ export function AdminUsersClient({ users: initialUsers }: { users: User[] }) {
 			toast.success(`${user.name} has been unbanned`);
 		}
 	};
+	const handleToggleFeatured = async (user: User) => {
+		if (!user.tutorProfileId) return;
+		setLoadingId(user.id);
+		const res = await toggleTutorFeaturedAction(user.tutorProfileId);
+		setLoadingId(null);
 
+		if (res.error) {
+			toast.error(res.error.message);
+			return;
+		}
+		setUsers((prev) => prev.map((u) => (u.id === user.id ? { ...u, isFeatured: !u.isFeatured } : u)));
+		toast.success(`${user.name} ${!user.isFeatured ? "marked as featured" : "removed from featured"}`);
+	};
 	return (
 		<div className="space-y-5">
 			{/* Header */}
@@ -286,25 +300,44 @@ export function AdminUsersClient({ users: initialUsers }: { users: User[] }) {
 
 									{/* Action */}
 									<TableCell className="py-3.5 pr-5 text-right">
-										<button
-											onClick={() => handleBanToggle(user)}
-											disabled={loadingId === user.id}
-											className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
-											style={
-												user.banned
-													? { background: "#f0fdf4", color: "#15803d", borderColor: "#bbf7d0" }
-													: { background: "#fef2f2", color: "#dc2626", borderColor: "#fecaca" }
-											}
-										>
-											{loadingId === user.id ? (
-												<Loader2 size={12} className="animate-spin" />
-											) : user.banned ? (
-												<ShieldOff size={12} />
-											) : (
-												<Shield size={12} />
+										<div className="flex items-center justify-end gap-2">
+											{/* Featured button — শুধু TUTOR এর জন্য */}
+											{user.role === "TUTOR" && user.tutorProfileId && (
+												<button
+													onClick={() => handleToggleFeatured(user)}
+													disabled={loadingId === user.id}
+													className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
+													style={
+														user.isFeatured
+															? { background: "#fefce8", color: "#a16207", borderColor: "#fde68a" }
+															: { background: "#f9fafb", color: "#6b7280", borderColor: "#e5e7eb" }
+													}
+												>
+													{user.isFeatured ? "★ Featured" : "☆ Feature"}
+												</button>
 											)}
-											{loadingId === user.id ? "Processing..." : user.banned ? "Unban" : "Ban"}
-										</button>
+
+											{/* Ban button — existing */}
+											<button
+												onClick={() => handleBanToggle(user)}
+												disabled={loadingId === user.id}
+												className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
+												style={
+													user.banned
+														? { background: "#f0fdf4", color: "#15803d", borderColor: "#bbf7d0" }
+														: { background: "#fef2f2", color: "#dc2626", borderColor: "#fecaca" }
+												}
+											>
+												{loadingId === user.id ? (
+													<Loader2 size={12} className="animate-spin" />
+												) : user.banned ? (
+													<ShieldOff size={12} />
+												) : (
+													<Shield size={12} />
+												)}
+												{loadingId === user.id ? "Processing..." : user.banned ? "Unban" : "Ban"}
+											</button>
+										</div>
 									</TableCell>
 								</TableRow>
 							))

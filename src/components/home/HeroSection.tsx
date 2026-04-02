@@ -10,6 +10,7 @@
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 const avatars = [
 	{ initials: "AK", color: "bg-brand-violet" },
@@ -49,9 +50,11 @@ export default function HeroSection() {
 
 					{/* CTA Button */}
 					<div className="mt-2">
-						<Button className="bg-brand-violet hover:bg-brand-navy text-white px-8 py-6 text-base font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-brand-violet/30 hover:shadow-brand-navy/30">
-							Get started
-						</Button>
+						<Link href="/register">
+							<Button className="bg-brand-violet hover:bg-brand-navy text-white px-8 py-6 text-base font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-brand-violet/30 hover:shadow-brand-navy/30">
+								Get started
+							</Button>
+						</Link>
 					</div>
 				</div>
 

@@ -10,7 +10,11 @@ export default async function AdminUsersPage({
 }) {
 	const { search, role } = await searchParams;
 	const res = await adminService.getAllUsers({ search, role });
-	const users = res.data || [];
+	const users = (res.data || []).map((u: any) => ({
+		...u,
+		tutorProfileId: u.tutorProfile?.id ?? null,
+		isFeatured: u.tutorProfile?.isFeatured ?? false,
+	}));
 
 	return <AdminUsersClient users={users} />;
 }
