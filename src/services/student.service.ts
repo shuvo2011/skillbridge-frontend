@@ -51,4 +51,28 @@ export const studentService = {
 			return { data: null, error: { message: "Something Went Wrong" } };
 		}
 	},
+	getMyStats: async () => {
+		try {
+			const cookieStore = await cookies();
+			const cookieHeader = cookieStore
+				.getAll()
+				.map((c) => `${c.name}=${c.value}`)
+				.join("; ");
+
+			const res = await fetch(`${env.API_URL}/api/students/stats`, {
+				headers: { Cookie: cookieHeader },
+				cache: "no-store",
+			});
+			const json = await res.json();
+			if (json.success)
+				return json.data as {
+					totalBookings: number;
+					confirmedBookings: number;
+					completedBookings: number;
+					cancelledBookings: number;
+					uniqueTutors: number;
+				};
+		} catch {}
+		return null;
+	},
 };

@@ -1,11 +1,10 @@
-import { BookOpen, CheckCircle, XCircle, Clock, DollarSign, Users } from "lucide-react";
-
-import { SessionBreakdownChart } from "./SessionBreakdownChart";
-import { tutorService } from "@/services/tutor.service";
+import { BookOpen, CheckCircle, XCircle, Clock, Users } from "lucide-react";
 import { StatCard } from "@/components/common/StatCard";
+import { BookingBreakdownChart } from "./BookingBreakdownChart";
+import { studentService } from "@/services/student.service";
 
 export async function StatsGrid() {
-	const stats = await tutorService.getTutorStats();
+	const stats = await studentService.getMyStats();
 
 	if (stats === null) {
 		return (
@@ -17,48 +16,40 @@ export async function StatsGrid() {
 
 	const cards = [
 		{
-			label: "Total Sessions",
-			value: stats.totalSessions,
+			label: "Total Bookings",
+			value: stats.totalBookings,
 			icon: BookOpen,
 			bg: "bg-indigo-50",
 			iconColor: "text-indigo-600",
 			valueColor: "text-indigo-700",
 		},
 		{
-			label: "Confirmed Sessions",
-			value: stats.confirmedSessions,
+			label: "Confirmed",
+			value: stats.confirmedBookings,
 			icon: Clock,
 			bg: "bg-blue-50",
 			iconColor: "text-blue-600",
 			valueColor: "text-blue-700",
 		},
 		{
-			label: "Completed Sessions",
-			value: stats.completedSessions,
+			label: "Completed",
+			value: stats.completedBookings,
 			icon: CheckCircle,
 			bg: "bg-emerald-50",
 			iconColor: "text-emerald-600",
 			valueColor: "text-emerald-700",
 		},
 		{
-			label: "Cancelled Sessions",
-			value: stats.cancelledSessions,
+			label: "Cancelled",
+			value: stats.cancelledBookings,
 			icon: XCircle,
 			bg: "bg-red-50",
 			iconColor: "text-red-500",
 			valueColor: "text-red-600",
 		},
 		{
-			label: "Total Revenue",
-			value: `$${stats.totalRevenue}`,
-			icon: DollarSign,
-			bg: "bg-amber-50",
-			iconColor: "text-amber-600",
-			valueColor: "text-amber-700",
-		},
-		{
-			label: "Total Students",
-			value: stats.totalStudents,
+			label: "Tutors Booked",
+			value: stats.uniqueTutors,
 			icon: Users,
 			bg: "bg-purple-50",
 			iconColor: "text-purple-600",
@@ -68,16 +59,16 @@ export async function StatsGrid() {
 
 	return (
 		<div className="space-y-6">
-			<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+			<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
 				{cards.map((card) => (
 					<StatCard key={card.label} {...card} />
 				))}
 			</div>
 
-			<SessionBreakdownChart
-				confirmed={stats.confirmedSessions}
-				completed={stats.completedSessions}
-				cancelled={stats.cancelledSessions}
+			<BookingBreakdownChart
+				confirmed={stats.confirmedBookings}
+				completed={stats.completedBookings}
+				cancelled={stats.cancelledBookings}
 			/>
 		</div>
 	);
