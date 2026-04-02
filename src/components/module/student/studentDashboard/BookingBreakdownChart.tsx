@@ -47,7 +47,7 @@ export function BookingBreakdownChart({ confirmed, completed, cancelled }: Props
 								})}
 							</Pie>
 							<Tooltip
-								formatter={(value: number, name: string) => [value, name]}
+								formatter={(value, name) => [value, name]}
 								contentStyle={{
 									borderRadius: "12px",
 									border: "1px solid #f0f0f0",
