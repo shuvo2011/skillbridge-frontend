@@ -15,6 +15,11 @@ type Session = {
 
 export const getSession = async (): Promise<Session> => {
 	const cookieStore = await cookies();
+	const allCookies = cookieStore.getAll();
+	console.log(
+		"getSession cookies:",
+		allCookies.map((c) => c.name),
+	);
 	const cookieHeader = cookieStore
 		.getAll()
 		.map((c) => `${c.name}=${c.value}`)
