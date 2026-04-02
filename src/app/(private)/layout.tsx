@@ -10,14 +10,12 @@ export default function Layout({ children }: { children: ReactNode }) {
 	const { data: session, isPending } = authClient.useSession();
 	const router = useRouter();
 
-	// ✅ redirect এখন useEffect এর ভেতরে — hook এর পরে
 	useEffect(() => {
 		if (!isPending && !session) {
 			router.push("/login");
 		}
 	}, [isPending, session, router]);
 
-	// ✅ Loading state — DashboardLayout কে সরিয়ে দিচ্ছি না
 	if (isPending || !session) {
 		return (
 			<div className="flex h-screen items-center justify-center">

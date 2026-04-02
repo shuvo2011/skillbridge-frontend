@@ -102,4 +102,29 @@ export const tutorService = {
 			return { data: null, error: { message: "Something Went Wrong" } };
 		}
 	},
+	getTutorStats: async () => {
+		try {
+			const cookieStore = await cookies();
+			const cookieHeader = cookieStore
+				.getAll()
+				.map((c) => `${c.name}=${c.value}`)
+				.join("; ");
+
+			const res = await fetch(`${env.API_URL}/api/tutors/stats`, {
+				headers: { Cookie: cookieHeader },
+				cache: "no-store",
+			});
+			const json = await res.json();
+			if (json.success)
+				return json.data as {
+					totalSessions: number;
+					confirmedSessions: number;
+					completedSessions: number;
+					cancelledSessions: number;
+					totalRevenue: number;
+					totalStudents: number;
+				};
+		} catch {}
+		return null;
+	},
 };
