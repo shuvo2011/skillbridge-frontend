@@ -7,7 +7,7 @@ import { ReviewsSection } from "./reviews-section";
 import Link from "next/link";
 import { BRAND, avgRating, initials } from "../tutorsPage/tutor-types";
 
-type Session = { user: { name: string; email: string; role: string; banned: boolean } } | null;
+type Session = { user: { name: string; email: string; role: string; banned?: boolean } } | null;
 
 export function TutorDetailClient({ tutor, session }: { tutor: TutorDetail; session: Session }) {
 	const rating = avgRating(tutor.reviews);
