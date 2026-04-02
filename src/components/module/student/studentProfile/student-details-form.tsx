@@ -14,9 +14,9 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 const studentDetailsSchema = z.object({
-	bio: z.string().max(1000, "Bio must be less than 1000 characters").optional(),
-	phone: z.string().max(15).optional(),
-	address: z.string().optional(),
+	bio: z.string().max(1000, "Bio must be less than 1000 characters"),
+	phone: z.string().max(15),
+	address: z.string(),
 });
 
 type StudentProfile = {
