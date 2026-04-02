@@ -37,8 +37,8 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"form">)
 				}
 
 				toast.success("Logged in successfully", { id: toastId });
-
 				const role = (data?.user as any)?.role;
+				router.refresh();
 				if (role === "STUDENT") router.push("/dashboard");
 				else if (role === "TUTOR") router.push("/tutor/dashboard");
 				else if (role === "ADMIN") router.push("/admin");
