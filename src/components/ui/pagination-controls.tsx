@@ -29,47 +29,54 @@ export default function PaginationControls({ meta }: PaginationControlsProps) {
 	const end = Math.min(currentPage * pageSize, total);
 
 	return (
-		<div className="flex items-center justify-between px-2 py-4 border-t mt-4">
+		<div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-2 py-4 border-t mt-4">
 			<div className="text-sm text-muted-foreground">
-				Showing {start} to {end} of {total} results
+				Showing {start}–{end} of {total} results
 			</div>
 
-			<div className="flex items-center space-x-2">
-				<Button variant="outline" size="icon" onClick={() => navigateToPage(1)} disabled={currentPage === 1}>
-					<ChevronsLeft className="h-4 w-4" />
+			<div className="flex items-center gap-1">
+				<Button
+					variant="outline"
+					size="icon"
+					className="h-8 w-8"
+					onClick={() => navigateToPage(1)}
+					disabled={currentPage === 1}
+				>
+					<ChevronsLeft className="h-3.5 w-3.5" />
 				</Button>
 
 				<Button
 					variant="outline"
 					size="icon"
+					className="h-8 w-8"
 					onClick={() => navigateToPage(currentPage - 1)}
 					disabled={currentPage === 1}
 				>
-					<ChevronLeft className="h-4 w-4" />
+					<ChevronLeft className="h-3.5 w-3.5" />
 				</Button>
 
-				<div className="flex items-center gap-1">
-					<span className="text-sm font-medium">
-						Page {currentPage} of {totalPages}
-					</span>
-				</div>
+				<span className="text-sm font-medium px-2 whitespace-nowrap">
+					{currentPage} / {totalPages}
+				</span>
 
 				<Button
 					variant="outline"
 					size="icon"
+					className="h-8 w-8"
 					onClick={() => navigateToPage(currentPage + 1)}
 					disabled={currentPage === totalPages}
 				>
-					<ChevronRight className="h-4 w-4" />
+					<ChevronRight className="h-3.5 w-3.5" />
 				</Button>
 
 				<Button
 					variant="outline"
 					size="icon"
+					className="h-8 w-8"
 					onClick={() => navigateToPage(totalPages)}
 					disabled={currentPage === totalPages}
 				>
-					<ChevronsRight className="h-4 w-4" />
+					<ChevronsRight className="h-3.5 w-3.5" />
 				</Button>
 			</div>
 		</div>

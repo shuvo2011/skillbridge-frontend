@@ -78,6 +78,14 @@ export function AdminBookingsClient({ bookings }: { bookings: Booking[] }) {
 		setPage(1);
 	};
 
+	const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1)
+		.filter((p) => p === 1 || p === totalPages || Math.abs(p - page) <= 1)
+		.reduce<(number | "...")[]>((acc, p, idx, arr) => {
+			if (idx > 0 && p - (arr[idx - 1] as number) > 1) acc.push("...");
+			acc.push(p);
+			return acc;
+		}, []);
+
 	return (
 		<div className="space-y-5">
 			<div>
@@ -154,139 +162,143 @@ export function AdminBookingsClient({ bookings }: { bookings: Booking[] }) {
 			</div>
 
 			<div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-				<Table>
-					<TableHeader>
-						<TableRow className="bg-gray-50/80 hover:bg-gray-50/80">
-							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide pl-5">
-								Student
-							</TableHead>
-							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Tutor</TableHead>
-							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Subject</TableHead>
-							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Date</TableHead>
-							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Time</TableHead>
-							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Price</TableHead>
-							<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide pr-5">Status</TableHead>
-						</TableRow>
-					</TableHeader>
-					<TableBody>
-						{paginated.length === 0 ? (
-							<TableRow>
-								<TableCell colSpan={7} className="py-16 text-center">
-									<div className="flex flex-col items-center gap-2">
-										<div
-											className="w-12 h-12 rounded-xl flex items-center justify-center"
-											style={{ background: `${BRAND}10` }}
-										>
-											<CalendarDays size={20} style={{ color: BRAND }} />
-										</div>
-										<p className="font-semibold text-gray-800 text-sm">No bookings found</p>
-										<p className="text-xs text-gray-400">
-											{hasActive ? "Try adjusting your filters" : "No bookings yet"}
-										</p>
-									</div>
-								</TableCell>
+				<div className="overflow-x-auto">
+					<Table>
+						<TableHeader>
+							<TableRow className="bg-gray-50/80 hover:bg-gray-50/80">
+								<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide pl-5">
+									Student
+								</TableHead>
+								<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Tutor</TableHead>
+								<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Subject</TableHead>
+								<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Date</TableHead>
+								<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Time</TableHead>
+								<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Price</TableHead>
+								<TableHead className="text-xs font-semibold text-gray-500 uppercase tracking-wide pr-5">
+									Status
+								</TableHead>
 							</TableRow>
-						) : (
-							paginated.map((booking) => {
-								const status = STATUS_CONFIG[booking.status];
-								return (
-									<TableRow key={booking.id} className="hover:bg-gray-50/60 transition-colors">
-										<TableCell className="pl-5 py-3.5">
-											<div className="flex items-center gap-2.5">
-												{booking.student.user.image ? (
-													<img
-														src={booking.student.user.image}
-														alt={booking.student.user.name}
-														className="w-7 h-7 rounded-lg object-cover shrink-0"
-													/>
-												) : (
-													<div
-														className="w-7 h-7 rounded-lg flex items-center justify-center text-[0.65rem] font-bold shrink-0"
-														style={{ background: `${BRAND}12`, color: BRAND }}
-													>
-														{initials(booking.student.user.name)}
-													</div>
-												)}
-												<div className="min-w-0">
-													<p className="text-sm font-semibold text-gray-800 truncate">{booking.student.user.name}</p>
-													<p className="text-[0.7rem] text-gray-400 truncate">{booking.student.user.email}</p>
-												</div>
-											</div>
-										</TableCell>
-
-										<TableCell className="py-3.5">
-											<div className="flex items-center gap-2.5">
-												{booking.tutor.user.image ? (
-													<img
-														src={booking.tutor.user.image}
-														alt={booking.tutor.user.name}
-														className="w-7 h-7 rounded-lg object-cover shrink-0"
-													/>
-												) : (
-													<div
-														className="w-7 h-7 rounded-lg flex items-center justify-center text-[0.65rem] font-bold shrink-0"
-														style={{ background: `${BRAND}12`, color: BRAND }}
-													>
-														{initials(booking.tutor.user.name)}
-													</div>
-												)}
-												<div className="min-w-0">
-													<p className="text-sm font-semibold text-gray-800 truncate">{booking.tutor.user.name}</p>
-													<p className="text-[0.7rem] text-gray-400 truncate">{booking.tutor.user.email}</p>
-												</div>
-											</div>
-										</TableCell>
-
-										<TableCell className="py-3.5">
-											{booking.category ? (
-												<span
-													className="text-[0.72rem] font-semibold px-2.5 py-1 rounded-full border whitespace-nowrap"
-													style={{ background: `${BRAND}10`, color: BRAND, borderColor: `${BRAND}20` }}
-												>
-													{booking.category.name}
-												</span>
-											) : (
-												<span className="text-xs text-gray-400">—</span>
-											)}
-										</TableCell>
-
-										<TableCell className="py-3.5">
-											<div className="flex items-center gap-1.5 text-sm text-gray-700 whitespace-nowrap">
-												<CalendarDays size={12} style={{ color: BRAND }} />
-												{formatDate(booking.sessionDate)}
-											</div>
-										</TableCell>
-
-										<TableCell className="py-3.5">
-											<div className="flex items-center gap-1.5 text-sm text-gray-700 whitespace-nowrap">
-												<Clock size={12} style={{ color: BRAND }} />
-												{formatTime(booking.slotFrom)} – {formatTime(booking.slotTo)}
-											</div>
-										</TableCell>
-
-										<TableCell className="py-3.5">
-											<span className="text-sm font-semibold" style={{ color: BRAND }}>
-												৳ {booking.price ?? 0}
-											</span>
-										</TableCell>
-
-										<TableCell className="py-3.5 pr-5">
-											<span
-												className={`inline-flex items-center gap-1.5 text-[0.72rem] font-semibold px-2.5 py-1 rounded-full border whitespace-nowrap ${status.className}`}
+						</TableHeader>
+						<TableBody>
+							{paginated.length === 0 ? (
+								<TableRow>
+									<TableCell colSpan={7} className="py-16 text-center">
+										<div className="flex flex-col items-center gap-2">
+											<div
+												className="w-12 h-12 rounded-xl flex items-center justify-center"
+												style={{ background: `${BRAND}10` }}
 											>
-												{booking.status === "CANCELLED" ? <XCircle size={10} /> : <CheckCircle2 size={10} />}
-												{status.label}
-											</span>
-										</TableCell>
-									</TableRow>
-								);
-							})
-						)}
-					</TableBody>
-				</Table>
+												<CalendarDays size={20} style={{ color: BRAND }} />
+											</div>
+											<p className="font-semibold text-gray-800 text-sm">No bookings found</p>
+											<p className="text-xs text-gray-400">
+												{hasActive ? "Try adjusting your filters" : "No bookings yet"}
+											</p>
+										</div>
+									</TableCell>
+								</TableRow>
+							) : (
+								paginated.map((booking) => {
+									const status = STATUS_CONFIG[booking.status];
+									return (
+										<TableRow key={booking.id} className="hover:bg-gray-50/60 transition-colors">
+											<TableCell className="pl-5 py-3.5">
+												<div className="flex items-center gap-2.5">
+													{booking.student.user.image ? (
+														<img
+															src={booking.student.user.image}
+															alt={booking.student.user.name}
+															className="w-7 h-7 rounded-lg object-cover shrink-0"
+														/>
+													) : (
+														<div
+															className="w-7 h-7 rounded-lg flex items-center justify-center text-[0.65rem] font-bold shrink-0"
+															style={{ background: `${BRAND}12`, color: BRAND }}
+														>
+															{initials(booking.student.user.name)}
+														</div>
+													)}
+													<div className="min-w-0">
+														<p className="text-sm font-semibold text-gray-800 truncate">{booking.student.user.name}</p>
+														<p className="text-[0.7rem] text-gray-400 truncate">{booking.student.user.email}</p>
+													</div>
+												</div>
+											</TableCell>
+
+											<TableCell className="py-3.5">
+												<div className="flex items-center gap-2.5">
+													{booking.tutor.user.image ? (
+														<img
+															src={booking.tutor.user.image}
+															alt={booking.tutor.user.name}
+															className="w-7 h-7 rounded-lg object-cover shrink-0"
+														/>
+													) : (
+														<div
+															className="w-7 h-7 rounded-lg flex items-center justify-center text-[0.65rem] font-bold shrink-0"
+															style={{ background: `${BRAND}12`, color: BRAND }}
+														>
+															{initials(booking.tutor.user.name)}
+														</div>
+													)}
+													<div className="min-w-0">
+														<p className="text-sm font-semibold text-gray-800 truncate">{booking.tutor.user.name}</p>
+														<p className="text-[0.7rem] text-gray-400 truncate">{booking.tutor.user.email}</p>
+													</div>
+												</div>
+											</TableCell>
+
+											<TableCell className="py-3.5">
+												{booking.category ? (
+													<span
+														className="text-[0.72rem] font-semibold px-2.5 py-1 rounded-full border whitespace-nowrap"
+														style={{ background: `${BRAND}10`, color: BRAND, borderColor: `${BRAND}20` }}
+													>
+														{booking.category.name}
+													</span>
+												) : (
+													<span className="text-xs text-gray-400">—</span>
+												)}
+											</TableCell>
+
+											<TableCell className="py-3.5">
+												<div className="flex items-center gap-1.5 text-sm text-gray-700 whitespace-nowrap">
+													<CalendarDays size={12} style={{ color: BRAND }} />
+													{formatDate(booking.sessionDate)}
+												</div>
+											</TableCell>
+
+											<TableCell className="py-3.5">
+												<div className="flex items-center gap-1.5 text-sm text-gray-700 whitespace-nowrap">
+													<Clock size={12} style={{ color: BRAND }} />
+													{formatTime(booking.slotFrom)} – {formatTime(booking.slotTo)}
+												</div>
+											</TableCell>
+
+											<TableCell className="py-3.5">
+												<span className="text-sm font-semibold" style={{ color: BRAND }}>
+													৳ {booking.price ?? 0}
+												</span>
+											</TableCell>
+
+											<TableCell className="py-3.5 pr-5">
+												<span
+													className={`inline-flex items-center gap-1.5 text-[0.72rem] font-semibold px-2.5 py-1 rounded-full border whitespace-nowrap ${status.className}`}
+												>
+													{booking.status === "CANCELLED" ? <XCircle size={10} /> : <CheckCircle2 size={10} />}
+													{status.label}
+												</span>
+											</TableCell>
+										</TableRow>
+									);
+								})
+							)}
+						</TableBody>
+					</Table>
+				</div>
 
 				{totalPages > 1 && (
-					<div className="flex items-center justify-between px-5 py-3.5 border-t border-gray-100 bg-gray-50/50">
+					<div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-5 py-3.5 border-t border-gray-100 bg-gray-50/50">
 						<p className="text-xs text-gray-500">
 							Showing <span className="font-semibold text-gray-800">{(page - 1) * PER_PAGE + 1}</span>–
 							<span className="font-semibold text-gray-800">{Math.min(page * PER_PAGE, filtered.length)}</span> of{" "}
@@ -302,29 +314,22 @@ export function AdminBookingsClient({ bookings }: { bookings: Booking[] }) {
 							>
 								<ChevronLeft size={15} />
 							</Button>
-							{Array.from({ length: totalPages }, (_, i) => i + 1)
-								.filter((p) => p === 1 || p === totalPages || Math.abs(p - page) <= 1)
-								.reduce<(number | "...")[]>((acc, p, idx, arr) => {
-									if (idx > 0 && p - (arr[idx - 1] as number) > 1) acc.push("...");
-									acc.push(p);
-									return acc;
-								}, [])
-								.map((p, i) =>
-									p === "..." ? (
-										<span key={`e-${i}`} className="px-2 text-xs text-gray-400">
-											...
-										</span>
-									) : (
-										<button
-											key={p}
-											onClick={() => setPage(p as number)}
-											className="h-8 w-8 rounded-lg text-xs font-semibold transition-all"
-											style={page === p ? { background: BRAND, color: "#fff" } : { color: "#6b7280" }}
-										>
-											{p}
-										</button>
-									),
-								)}
+							{pageNumbers.map((p, i) =>
+								p === "..." ? (
+									<span key={`e-${i}`} className="px-2 text-xs text-gray-400">
+										...
+									</span>
+								) : (
+									<button
+										key={p}
+										onClick={() => setPage(p as number)}
+										className="h-8 w-8 rounded-lg text-xs font-semibold transition-all"
+										style={page === p ? { background: BRAND, color: "#fff" } : { color: "#6b7280" }}
+									>
+										{p}
+									</button>
+								),
+							)}
 							<Button
 								variant="ghost"
 								size="icon"

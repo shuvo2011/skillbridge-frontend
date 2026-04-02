@@ -1,16 +1,16 @@
 "use server";
 
 import { adminService } from "@/services/admin.service";
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 export const updateUserStatusAction = async (id: string, banned: boolean, banReason?: string) => {
 	const res = await adminService.updateUserStatus(id, banned, banReason);
-	revalidateTag("adminUsers");
+	revalidatePath("/admin/users");
 	return res;
 };
 
 export const toggleTutorFeaturedAction = async (tutorProfileId: string) => {
 	const res = await adminService.toggleTutorFeatured(tutorProfileId);
-	revalidateTag("adminUsers");
+	revalidatePath("/admin/users");
 	return res;
 };
