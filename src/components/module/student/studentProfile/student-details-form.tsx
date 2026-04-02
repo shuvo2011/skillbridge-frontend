@@ -1,4 +1,3 @@
-// components/module/student-profile/student-details-form.tsx
 "use client";
 
 import { updateStudentProfile } from "@/actions/student.action";
@@ -47,7 +46,6 @@ export function StudentDetailsForm({
 			return;
 		}
 
-		// instant preview
 		setPreview(URL.createObjectURL(file));
 
 		setUploading(true);
@@ -55,14 +53,14 @@ export function StudentDetailsForm({
 
 		const formData = new FormData();
 		formData.append("image", file);
-		formData.append("currentImageUrl", currentImage ?? ""); // ✅ পুরানো image URL
+		formData.append("currentImageUrl", currentImage ?? "");
 
 		const result = await updateProfilePicture(formData);
 		setUploading(false);
 
 		if (result.error) {
 			toast.error(result.error.message, { id: toastId });
-			setPreview(currentImage ?? null); // rollback
+			setPreview(currentImage ?? null);
 			return;
 		}
 
@@ -111,11 +109,9 @@ export function StudentDetailsForm({
 				>
 					<FieldGroup>
 						<div className="grid grid-cols-6 gap-4">
-							{/* Profile Picture */}
 							<div className="col-span-6">
 								<FieldLabel>Profile Picture</FieldLabel>
 								<div className="mt-2 flex items-center gap-4">
-									{/* শুধু image circle */}
 									<div className="relative w-20 h-20 rounded-full border-2 border-dashed border-gray-200 flex items-center justify-center overflow-hidden bg-gray-50">
 										{preview ? (
 											<img src={preview} alt="Profile" className="w-full h-full object-cover" />
@@ -124,7 +120,6 @@ export function StudentDetailsForm({
 										)}
 									</div>
 
-									{/* Button আলাদা */}
 									<div className="flex flex-col gap-1">
 										<Button
 											type="button"
@@ -148,7 +143,6 @@ export function StudentDetailsForm({
 								</div>
 							</div>
 
-							{/* Phone */}
 							<div className="col-span-6 md:col-span-3">
 								<form.Field
 									name="phone"
@@ -170,7 +164,6 @@ export function StudentDetailsForm({
 								/>
 							</div>
 
-							{/* Address */}
 							<div className="col-span-6 md:col-span-3">
 								<form.Field
 									name="address"
@@ -192,7 +185,6 @@ export function StudentDetailsForm({
 								/>
 							</div>
 
-							{/* Bio */}
 							<div className="col-span-6">
 								<form.Field
 									name="bio"

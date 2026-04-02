@@ -16,7 +16,6 @@ export default function NewsletterSection() {
 		defaultValues: { email: "" },
 		validators: { onSubmit: formSchema },
 		onSubmit: async ({ value }) => {
-			console.log("Newsletter subscription:", value);
 			toast.success("Subscribed successfully!");
 			form.reset();
 		},

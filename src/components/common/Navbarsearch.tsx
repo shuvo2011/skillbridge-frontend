@@ -16,12 +16,10 @@ export default function NavbarSearch({ className }: NavbarSearchProps) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const router = useRouter();
 
-	// Focus input when popup opens
 	useEffect(() => {
 		if (open) setTimeout(() => inputRef.current?.focus(), 50);
 	}, [open]);
 
-	// Close on Escape
 	useEffect(() => {
 		const handler = (e: KeyboardEvent) => {
 			if (e.key === "Escape") setOpen(false);
@@ -39,7 +37,6 @@ export default function NavbarSearch({ className }: NavbarSearchProps) {
 
 	return (
 		<>
-			{/* Search icon button */}
 			<button
 				onClick={() => setOpen(true)}
 				className={`text-brand-navy hover:text-brand-violet transition-colors p-1.5 rounded-lg hover:bg-brand-violet/10 ${className ?? ""}`}
@@ -48,14 +45,11 @@ export default function NavbarSearch({ className }: NavbarSearchProps) {
 				<Search className="w-5 h-5" />
 			</button>
 
-			{/* Backdrop */}
 			{open && <div className="fixed inset-0 bg-black/30 z-50 backdrop-blur-sm" onClick={() => setOpen(false)} />}
 
-			{/* Popup */}
 			{open && (
 				<div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 w-full max-w-lg px-4">
 					<div className="bg-white rounded-2xl shadow-2xl shadow-brand-navy/15 p-4 border border-brand-purple/10">
-						{/* Input row */}
 						<div className="flex items-center gap-2">
 							<div className="relative flex-1">
 								<Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-slate" />
@@ -82,7 +76,6 @@ export default function NavbarSearch({ className }: NavbarSearchProps) {
 							</button>
 						</div>
 
-						{/* Popular tags */}
 						<div className="mt-3 flex items-center gap-2 flex-wrap">
 							<span className="text-[11px] text-brand-slate font-medium">Popular:</span>
 							{POPULAR.map((tag) => (

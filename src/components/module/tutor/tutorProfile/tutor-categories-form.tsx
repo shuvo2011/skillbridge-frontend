@@ -1,4 +1,3 @@
-// components/module/tutor/tutorProfile/tutor-categories-form.tsx
 "use client";
 
 import { addTutorCategory, removeTutorCategory } from "@/actions/tutor-category.action";
@@ -56,7 +55,6 @@ export function TutorCategoriesForm({
 				<CardDescription>Select the subjects you teach.</CardDescription>
 			</CardHeader>
 			<CardContent className="flex flex-col gap-4">
-				{/* Selected categories */}
 				<div>
 					<p className="text-sm font-medium text-gray-700 mb-2">Selected</p>
 					{selected.length === 0 ? (
@@ -83,7 +81,6 @@ export function TutorCategoriesForm({
 					)}
 				</div>
 
-				{/* Available categories */}
 				<div>
 					<p className="text-sm font-medium text-gray-700 mb-2">Available</p>
 					{available.length === 0 ? (

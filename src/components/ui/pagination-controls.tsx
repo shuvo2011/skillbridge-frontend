@@ -23,12 +23,7 @@ export default function PaginationControls({ meta }: PaginationControlsProps) {
 		const params = new URLSearchParams(searchParams.toString());
 		params.set("page", page.toString());
 		router.push(`?${params.toString()}`);
-		// router.push("/dashboard/create-blogs"); // Example
-		console.log(params);
 	};
-
-	//* Showing 1 to 10 of 21 -> page 1
-	//* Showing 11 to 20 of 21 -> page 2
 
 	const start = (currentPage - 1) * pageSize + 1;
 	const end = Math.min(currentPage * pageSize, total);

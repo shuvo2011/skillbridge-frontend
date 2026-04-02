@@ -1,4 +1,3 @@
-// booking-section.tsx
 "use client";
 
 import { TutorDetail, Availability } from "@/types/tutor.types";
@@ -107,7 +106,6 @@ export function BookingSection({ tutor, session }: { tutor: TutorDetail; session
 										background: selectedInThisDay ? `${BRAND}06` : "#fafafa",
 									}}
 								>
-									{/* Day header */}
 									<button
 										onClick={() => toggleDay(day)}
 										className="w-full flex items-center justify-between px-3 py-2.5 text-left"
@@ -142,7 +140,7 @@ export function BookingSection({ tutor, session }: { tutor: TutorDetail; session
 											style={{ transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)" }}
 										/>
 									</button>
-									{/* Slots */}
+
 									{isExpanded && (
 										<div className="px-3 pb-3 border-t border-gray-100">
 											<div className="pt-2 flex flex-col gap-1.5">
@@ -180,7 +178,7 @@ export function BookingSection({ tutor, session }: { tutor: TutorDetail; session
 						</span>
 					</div>
 				)}
-				{/* Category select */}
+
 				{selectedSlot && (
 					<div className="mt-4">
 						<p className="text-xs font-medium text-gray-600 mb-1.5 flex items-center gap-1.5">
@@ -203,7 +201,6 @@ export function BookingSection({ tutor, session }: { tutor: TutorDetail; session
 					</div>
 				)}
 
-				{/* Date picker */}
 				{selectedSlot && (
 					<div className="mt-4">
 						<p className="text-xs font-medium text-gray-600 mb-1.5">Select Date</p>
@@ -217,7 +214,6 @@ export function BookingSection({ tutor, session }: { tutor: TutorDetail; session
 					</div>
 				)}
 
-				{/* Book button or login message */}
 				<div className="mt-4">
 					{!session ? (
 						<div className="text-center">

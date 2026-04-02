@@ -45,7 +45,6 @@ export function ReviewsSection({
 	const isStudent = session?.user.role === "STUDENT";
 	const rating_avg = avgRating(reviews);
 
-	// Fetch reviewable bookings if student
 	useEffect(() => {
 		if (!isStudent) return;
 		setLoadingBookings(true);
@@ -71,7 +70,6 @@ export function ReviewsSection({
 		if (result.success) {
 			toast.success(result.message);
 
-			// Optimistic update — add to reviews list immediately
 			const optimisticReview = {
 				id: `optimistic-${Date.now()}`,
 				rating,
@@ -87,7 +85,6 @@ export function ReviewsSection({
 			};
 			setReviews((prev) => [optimisticReview as any, ...prev]);
 
-			// Remove submitted booking from reviewable list
 			setReviewableBookings((prev) => {
 				const updated = prev.filter((b) => b.id !== selectedBookingId);
 				setSelectedBookingId(updated[0]?.id ?? "");
@@ -100,11 +97,8 @@ export function ReviewsSection({
 		}
 	};
 
-	// console.log(reviews);
-
 	return (
 		<div className="flex flex-col gap-6">
-			{/* ── Review Form ── */}
 			{isStudent && !loadingBookings && reviewableBookings.length > 0 && (
 				<div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
 					<h2 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
@@ -112,7 +106,6 @@ export function ReviewsSection({
 						Leave a Review
 					</h2>
 
-					{/* Booking selector / session info */}
 					<div className="mb-4">
 						<label className="text-xs font-semibold text-gray-500 mb-2 block">
 							{reviewableBookings.length > 1 ? "Select Session" : "Session"}
@@ -153,7 +146,6 @@ export function ReviewsSection({
 						</div>
 					</div>
 
-					{/* Star rating */}
 					<div className="mb-4">
 						<label className="text-xs font-semibold text-gray-500 mb-1.5 block">Rating</label>
 						<div className="flex items-center gap-1">
@@ -181,7 +173,6 @@ export function ReviewsSection({
 						</div>
 					</div>
 
-					{/* Review text */}
 					<div className="mb-4">
 						<label className="text-xs font-semibold text-gray-500 mb-1.5 block">Your Review</label>
 						<textarea
@@ -213,7 +204,6 @@ export function ReviewsSection({
 				</div>
 			)}
 
-			{/* ── Reviews List ── */}
 			<div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
 				<div className="flex items-center justify-between mb-4">
 					<h2 className="font-semibold text-gray-800 flex items-center gap-2">
@@ -279,7 +269,7 @@ export function ReviewsSection({
 											))}
 										</div>
 									</div>
-									{/* Session info */}
+
 									<div className="flex gap-2 pt-1 items-center">
 										{review.booking?.category?.name && (
 											<span

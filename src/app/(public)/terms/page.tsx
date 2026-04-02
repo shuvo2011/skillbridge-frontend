@@ -1,4 +1,3 @@
-// app/(public)/terms/page.tsx
 const sections = [
 	{
 		title: "1. Acceptance of Terms",

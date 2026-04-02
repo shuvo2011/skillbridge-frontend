@@ -1,4 +1,3 @@
-// components/module/tutorPage/tutor-card.tsx
 "use client";
 
 import { Tutor } from "@/types/tutor.types";
@@ -38,7 +37,6 @@ export function TutorCard({ tutor, index }: { tutor: Tutor; index: number }) {
 				animationDelay: `${(index % PER_PAGE) * 55}ms`,
 			}}
 		>
-			{/* Header band */}
 			<div className="relative h-20 flex items-end px-5 pb-0" style={{ background: "#efefef" }}>
 				{tutor.isFeatured && (
 					<span
@@ -62,7 +60,6 @@ export function TutorCard({ tutor, index }: { tutor: Tutor; index: number }) {
 				</div>
 			</div>
 
-			{/* Body */}
 			<div className="px-5 pt-10 pb-5 flex flex-col gap-3">
 				<div>
 					<div className="flex items-center gap-2 flex-wrap">

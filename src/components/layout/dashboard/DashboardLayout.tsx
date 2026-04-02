@@ -18,11 +18,8 @@ interface DashboardLayoutProps {
 }
 
 export default function DashboardLayout({ children, user }: DashboardLayoutProps) {
-	// ✅ ALL hooks must be at the top, unconditionally
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const { logout } = useLogout();
-
-	// ❌ Never do: if (!user) return null; BEFORE hooks above
 
 	return (
 		<div className="flex h-screen overflow-hidden bg-background">

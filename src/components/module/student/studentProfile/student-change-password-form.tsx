@@ -1,4 +1,3 @@
-// components/module/student-profile/change-password-form.tsx
 "use client";
 
 import { changePassword } from "@/actions/user.action";

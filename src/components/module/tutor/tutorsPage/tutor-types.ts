@@ -1,5 +1,3 @@
-// components/module/tutorPage/tutor-types.ts
-
 export const BRAND = "#210095";
 export const PER_PAGE = 6;
 

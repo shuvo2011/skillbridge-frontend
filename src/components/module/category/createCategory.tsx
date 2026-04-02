@@ -36,8 +36,6 @@ export function CreateCategory() {
 
 			try {
 				const res = await createCategory(categoryData);
-				console.log(res);
-				console.log(categoryData);
 				if (res.error) {
 					toast.error(res.error.message, { id: toastId });
 					return;

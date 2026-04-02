@@ -1,4 +1,3 @@
-// lib/get-session.ts
 import { cookies } from "next/headers";
 import { env } from "@/env";
 

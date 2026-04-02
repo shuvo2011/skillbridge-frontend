@@ -35,7 +35,6 @@ const team = [
 export default function AboutPage() {
 	return (
 		<main className="bg-white text-gray-800">
-			{/* Hero */}
 			<section className="py-20 px-6 text-center" style={{ background: "#f9f7ff" }}>
 				<div className="max-w-3xl mx-auto">
 					<span
@@ -61,7 +60,6 @@ export default function AboutPage() {
 				</div>
 			</section>
 
-			{/* Stats */}
 			<section className="py-14 px-6 border-b border-gray-100">
 				<div className="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
 					{stats.map((s) => (
@@ -75,7 +73,6 @@ export default function AboutPage() {
 				</div>
 			</section>
 
-			{/* Story */}
 			<section className="py-20 px-6">
 				<div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-12 items-center">
 					<div>
@@ -115,7 +112,6 @@ export default function AboutPage() {
 				</div>
 			</section>
 
-			{/* Values */}
 			<section className="py-20 px-6" style={{ background: "#f9f7ff" }}>
 				<div className="max-w-4xl mx-auto text-center mb-12">
 					<h2 className="text-3xl font-extrabold" style={{ color: "#210095" }}>
@@ -139,7 +135,6 @@ export default function AboutPage() {
 				</div>
 			</section>
 
-			{/* Team */}
 			<section className="py-20 px-6">
 				<div className="max-w-4xl mx-auto text-center mb-12">
 					<h2 className="text-3xl font-extrabold" style={{ color: "#210095" }}>

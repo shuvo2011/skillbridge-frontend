@@ -2,7 +2,7 @@
 
 import { categoryService } from "@/services/category.service";
 import { Category } from "@/types/category.type";
-import { revalidateTag } from "next/cache"; // ← next/cache থেকে import
+import { revalidateTag } from "next/cache";
 
 export const createCategory = async (data: Category) => {
 	const res = await categoryService.createCategory(data);

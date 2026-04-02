@@ -11,7 +11,6 @@ export default async function PopularTutors() {
 	return (
 		<section className="w-full bg-white py-10 lg:py-20 px-6">
 			<div className="mx-auto max-w-6xl">
-				{/* Header row */}
 				<div className="flex items-start justify-between gap-4 mb-12">
 					<div>
 						<h2 className="text-4xl font-extrabold text-brand-navy">Our popular tutors</h2>
@@ -28,8 +27,6 @@ export default async function PopularTutors() {
 						View All Tutors
 					</Link>
 				</div>
-
-				{/* Tutor cards */}
 
 				<div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
 					{tutors.map((tutor: any) => {
@@ -50,14 +47,12 @@ export default async function PopularTutors() {
 									key={tutor.id}
 									className="rounded-2xl border border-brand-purple/10 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 bg-white relative"
 								>
-									{/* Featured badge */}
 									{tutor.isFeatured && (
 										<div className="absolute top-3 right-3 z-10 flex items-center gap-1 bg-amber-400 text-white text-[0.65rem] font-bold px-2 py-0.5 rounded-full shadow">
 											<Star className="w-2.5 h-2.5 fill-white" /> FEATURED
 										</div>
 									)}
 
-									{/* Avatar area */}
 									<div className="relative w-full h-52 overflow-hidden bg-gray-100">
 										{tutor.user?.image ? (
 											<Image src={tutor.user.image} alt={tutor.user.name} fill className="object-cover object-top" />
@@ -68,13 +63,11 @@ export default async function PopularTutors() {
 										)}
 									</div>
 
-									{/* Info */}
 									<div className="p-5 flex flex-col gap-1">
 										<p className="text-xl font-extrabold text-brand-midnight">{tutor.user?.name}</p>
 										<p className="text-base font-bold text-brand-navy">{subject}</p>
 										<p className="text-xs text-brand-slate mt-0.5 line-clamp-2">{tutor.bio}</p>
 
-										{/* Meta */}
 										<div className="flex items-center gap-4 mt-3 text-xs text-brand-gray">
 											<span className="flex items-center gap-1">
 												<Calendar className="w-3.5 h-3.5" />

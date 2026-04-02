@@ -1,4 +1,3 @@
-// components/module/tutor/tutorsPage/tutor-detail-client.tsx
 "use client";
 
 import { TutorDetail } from "@/types/tutor.types";
@@ -12,11 +11,9 @@ type Session = { user: { name: string; email: string; role: string; banned: bool
 
 export function TutorDetailClient({ tutor, session }: { tutor: TutorDetail; session: Session }) {
 	const rating = avgRating(tutor.reviews);
-	// console.log(tutor);
 	return (
 		<div className="min-h-screen bg-[#f7f6fb]">
 			<div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-				{/* Back */}
 				<Link
 					href="/tutors"
 					className="inline-flex items-center gap-2 text-xs font-semibold mb-6 hover:opacity-70 transition-opacity"
@@ -26,9 +23,7 @@ export function TutorDetailClient({ tutor, session }: { tutor: TutorDetail; sess
 				</Link>
 
 				<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-					{/* ── Left column ── */}
 					<div className="lg:col-span-2 flex flex-col gap-6">
-						{/* Profile card */}
 						<div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
 							<div className="h-24 w-full" style={{ background: `${BRAND}15` }} />
 							<div className="px-6 pb-6 -mt-10">
@@ -72,7 +67,6 @@ export function TutorDetailClient({ tutor, session }: { tutor: TutorDetail; sess
 									)}
 								</div>
 
-								{/* Rating */}
 								{rating && (
 									<div className="flex items-center gap-1 mt-2">
 										{Array.from({ length: 5 }).map((_, i) => (
@@ -91,7 +85,6 @@ export function TutorDetailClient({ tutor, session }: { tutor: TutorDetail; sess
 									</div>
 								)}
 
-								{/* Meta */}
 								<div className="flex flex-wrap gap-2 mt-3">
 									{tutor.price && (
 										<span
@@ -121,7 +114,6 @@ export function TutorDetailClient({ tutor, session }: { tutor: TutorDetail; sess
 									</span>
 								</div>
 
-								{/* Categories */}
 								<div className="flex flex-wrap gap-1.5 mt-3">
 									{tutor.tutorCategories.map((c) => (
 										<span
@@ -136,7 +128,6 @@ export function TutorDetailClient({ tutor, session }: { tutor: TutorDetail; sess
 							</div>
 						</div>
 
-						{/* Bio */}
 						{tutor.bio && (
 							<div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
 								<h2 className="font-semibold text-gray-800 mb-2 flex items-center gap-2">
@@ -146,11 +137,9 @@ export function TutorDetailClient({ tutor, session }: { tutor: TutorDetail; sess
 							</div>
 						)}
 
-						{/* Reviews */}
 						<ReviewsSection reviews={tutor.reviews} tutorId={tutor.id} session={session} />
 					</div>
 
-					{/* ── Right column — Booking ── */}
 					<div className="lg:col-span-1">
 						{tutor.user.banned ? (
 							<div className="bg-white rounded-2xl border border-red-100 shadow-sm p-6 flex flex-col items-center text-center gap-3">

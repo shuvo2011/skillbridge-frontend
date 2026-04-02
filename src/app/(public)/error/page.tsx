@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-// app/(public)/error/page.tsx
 export default function Error404Page() {
 	return (
 		<main className="min-h-[70vh] flex items-center justify-center px-6">

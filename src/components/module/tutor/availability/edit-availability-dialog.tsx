@@ -1,4 +1,3 @@
-// components/module/tutor/availability/edit-availability-dialog.tsx
 "use client";
 
 import { updateAvailability } from "@/actions/availability.action";
@@ -66,7 +65,6 @@ export function EditAvailabilityDialog({
 					}}
 				>
 					<FieldGroup>
-						{/* Day */}
 						<form.Field
 							name="dayOfWeek"
 							children={(field) => {
@@ -92,7 +90,6 @@ export function EditAvailabilityDialog({
 							}}
 						/>
 
-						{/* Time */}
 						<div className="grid grid-cols-2 gap-4">
 							<form.Field
 								name="availableFrom"

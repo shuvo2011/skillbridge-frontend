@@ -1,4 +1,3 @@
-// actions/student.action.ts
 "use server";
 
 import { studentService } from "@/services/student.service";

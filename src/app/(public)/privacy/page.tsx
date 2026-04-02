@@ -1,4 +1,3 @@
-// app/(public)/privacy/page.tsx
 const sections = [
 	{
 		title: "1. Information We Collect",

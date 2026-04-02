@@ -1,4 +1,3 @@
-// components/module/tutorPage/tutor-filters.tsx
 "use client";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -20,7 +19,6 @@ export function TutorFilters({ filters, setFilter, clearAll, filteredCount, cate
 
 	return (
 		<div className="rounded-2xl border border-gray-100 bg-white shadow-sm p-4 sm:p-5 mb-8 space-y-4">
-			{/* Search */}
 			<div className="relative">
 				<Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
 				<input
@@ -47,7 +45,6 @@ export function TutorFilters({ filters, setFilter, clearAll, filteredCount, cate
 				)}
 			</div>
 
-			{/* Category pills */}
 			<div className="overflow-x-auto -mx-1 px-1" style={{ scrollbarWidth: "none" }}>
 				<div className="flex gap-2 pb-0.5 w-max sm:w-auto sm:flex-wrap">
 					{categories.map((cat) => (
@@ -79,7 +76,6 @@ export function TutorFilters({ filters, setFilter, clearAll, filteredCount, cate
 				</div>
 			</div>
 
-			{/* Dropdowns */}
 			<div className="flex items-center gap-2 flex-wrap">
 				<Select value={filters.minExperience} onValueChange={(v) => setFilter("minExperience", v)}>
 					<SelectTrigger className="h-9 w-[145px] text-xs border-gray-200 bg-gray-50">
@@ -111,7 +107,7 @@ export function TutorFilters({ filters, setFilter, clearAll, filteredCount, cate
 						<SelectItem value="featured">Featured first</SelectItem>
 						<SelectItem value="rating">Top rated</SelectItem>
 						<SelectItem value="experience">Most experienced</SelectItem>
-						<SelectItem value="price_low">Price: Low to High</SelectItem> {/* ← add */}
+						<SelectItem value="price_low">Price: Low to High</SelectItem>
 						<SelectItem value="price_high">Price: High to Low</SelectItem>
 					</SelectContent>
 				</Select>

@@ -1,4 +1,3 @@
-// components/module/admin/dashboard/admin-dashboard-client.tsx
 "use client";
 
 import {
@@ -78,7 +77,6 @@ export function AdminDashboardClient({ stats, trends }: { stats: Stats | null; t
 				<p className="text-sm text-gray-500 mt-0.5">Platform overview and statistics</p>
 			</div>
 
-			{/* Revenue highlight */}
 			<div
 				className="rounded-2xl p-6 text-white flex items-center justify-between"
 				style={{ background: `linear-gradient(135deg, ${BRAND}, #4f35c2)` }}
@@ -93,7 +91,6 @@ export function AdminDashboardClient({ stats, trends }: { stats: Stats | null; t
 				</div>
 			</div>
 
-			{/* Users */}
 			<div>
 				<h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Users</h2>
 				<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -120,9 +117,9 @@ export function AdminDashboardClient({ stats, trends }: { stats: Stats | null; t
 					/>
 				</div>
 			</div>
-			{/* Chart */}
+
 			<BookingChart data={trends} />
-			{/* Bookings */}
+
 			<div>
 				<h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Bookings</h2>
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -133,7 +130,6 @@ export function AdminDashboardClient({ stats, trends }: { stats: Stats | null; t
 				</div>
 			</div>
 
-			{/* Other */}
 			<div>
 				<h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Other</h2>
 				<div className="grid grid-cols-1 gap-4">

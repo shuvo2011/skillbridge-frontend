@@ -1,4 +1,3 @@
-// app/(dashboard)/student/bookings/page.tsx
 import { studentBookingService } from "@/services/booking.service";
 import StudentBookingsClient from "@/components/module/student/studentBookings/student-bookings-client";
 

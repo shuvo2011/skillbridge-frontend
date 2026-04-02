@@ -1,4 +1,3 @@
-// components/module/admin/users/admin-users-client.tsx
 "use client";
 
 import { useState } from "react";
@@ -23,7 +22,7 @@ type User = {
 	emailVerified: boolean;
 	createdAt: string;
 	image?: string | null;
-	tutorProfileId?: string | null; // ← নতুন
+	tutorProfileId?: string | null;
 	isFeatured?: boolean;
 };
 
@@ -73,7 +72,6 @@ export function AdminUsersClient({ users: initialUsers }: { users: User[] }) {
 
 	const handleBanToggle = async (user: User) => {
 		if (!user.banned) {
-			// Ban করার সময় reason নাও
 			const { value: banReason, isConfirmed } = await Swal.fire({
 				title: `Ban ${user.name}?`,
 				input: "text",
@@ -100,7 +98,6 @@ export function AdminUsersClient({ users: initialUsers }: { users: User[] }) {
 			);
 			toast.success(`${user.name} has been banned`);
 		} else {
-			// Unban
 			const result = await Swal.fire({
 				title: `Unban ${user.name}?`,
 				text: "This user will be able to access the platform again.",
@@ -140,7 +137,6 @@ export function AdminUsersClient({ users: initialUsers }: { users: User[] }) {
 	};
 	return (
 		<div className="space-y-5">
-			{/* Header */}
 			<div>
 				<h1 className="text-xl font-bold text-gray-900">Users</h1>
 				<p className="text-sm text-gray-500 mt-0.5">
@@ -148,10 +144,8 @@ export function AdminUsersClient({ users: initialUsers }: { users: User[] }) {
 				</p>
 			</div>
 
-			{/* Filter bar */}
 			<div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 space-y-3">
 				<div className="flex flex-col sm:flex-row gap-3">
-					{/* Search */}
 					<div className="relative flex-1">
 						<Search
 							size={14}
@@ -181,7 +175,6 @@ export function AdminUsersClient({ users: initialUsers }: { users: User[] }) {
 						)}
 					</div>
 
-					{/* Role filter */}
 					<div className="flex gap-1.5 flex-wrap items-center">
 						{ROLE_FILTERS.map((r) => (
 							<button
@@ -219,7 +212,6 @@ export function AdminUsersClient({ users: initialUsers }: { users: User[] }) {
 				)}
 			</div>
 
-			{/* Table */}
 			<div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
 				<Table>
 					<TableHeader>
@@ -243,7 +235,6 @@ export function AdminUsersClient({ users: initialUsers }: { users: User[] }) {
 						) : (
 							paginated.map((user) => (
 								<TableRow key={user.id} className="hover:bg-gray-50/60 transition-colors">
-									{/* User */}
 									<TableCell className="pl-5 py-3.5">
 										<div className="flex items-center gap-2.5">
 											{user.image ? (
@@ -266,7 +257,6 @@ export function AdminUsersClient({ users: initialUsers }: { users: User[] }) {
 										</div>
 									</TableCell>
 
-									{/* Role */}
 									<TableCell className="py-3.5">
 										<Badge
 											variant="outline"
@@ -280,7 +270,6 @@ export function AdminUsersClient({ users: initialUsers }: { users: User[] }) {
 										</Badge>
 									</TableCell>
 
-									{/* Status */}
 									<TableCell className="py-3.5">
 										{user.banned ? (
 											<Badge variant="outline" className="bg-red-50 text-red-600 border-red-200 text-xs">
@@ -293,15 +282,12 @@ export function AdminUsersClient({ users: initialUsers }: { users: User[] }) {
 										)}
 									</TableCell>
 
-									{/* Joined */}
 									<TableCell className="py-3.5">
 										<span className="text-sm text-gray-600">{formatDate(user.createdAt)}</span>
 									</TableCell>
 
-									{/* Action */}
 									<TableCell className="py-3.5 pr-5 text-right">
 										<div className="flex items-center justify-end gap-2">
-											{/* Featured button — শুধু TUTOR এর জন্য */}
 											{user.role === "TUTOR" && user.tutorProfileId && (
 												<button
 													onClick={() => handleToggleFeatured(user)}
@@ -317,7 +303,6 @@ export function AdminUsersClient({ users: initialUsers }: { users: User[] }) {
 												</button>
 											)}
 
-											{/* Ban button — existing */}
 											<button
 												onClick={() => handleBanToggle(user)}
 												disabled={loadingId === user.id}
@@ -345,7 +330,6 @@ export function AdminUsersClient({ users: initialUsers }: { users: User[] }) {
 					</TableBody>
 				</Table>
 
-				{/* Pagination */}
 				{totalPages > 1 && (
 					<div className="flex items-center justify-between px-5 py-3.5 border-t border-gray-100 bg-gray-50/50">
 						<p className="text-xs text-gray-500">

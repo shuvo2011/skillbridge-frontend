@@ -1,4 +1,3 @@
-// components/module/tutor-availability/add-availability-form.tsx
 "use client";
 
 import { createAvailability } from "@/actions/availability.action";
@@ -56,7 +55,6 @@ export function AddAvailabilityForm() {
 					}}
 				>
 					<FieldGroup>
-						{/* Day */}
 						<form.Field
 							name="dayOfWeek"
 							children={(field) => {
@@ -85,7 +83,6 @@ export function AddAvailabilityForm() {
 							}}
 						/>
 
-						{/* Time */}
 						<div className="grid grid-cols-2 gap-4">
 							<form.Field
 								name="availableFrom"

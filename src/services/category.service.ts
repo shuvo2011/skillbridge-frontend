@@ -27,7 +27,7 @@ export const categoryService = {
 				});
 			}
 
-			const cookieStore = await cookies(); // ← add করো
+			const cookieStore = await cookies();
 			const cookieHeader = cookieStore
 				.getAll()
 				.map((cookie) => `${cookie.name}=${cookie.value}`)
@@ -68,8 +68,6 @@ export const categoryService = {
 				.map((cookie) => `${cookie.name}=${cookie.value}`)
 				.join("; ");
 
-			console.log("Cookie Header:", cookieHeader);
-
 			const res = await fetch(`${API_URL}/api/categories`, {
 				method: "POST",
 				headers: {
@@ -79,11 +77,9 @@ export const categoryService = {
 				body: JSON.stringify(categoryData),
 			});
 
-			console.log("Response status:", res.status);
-
 			if (!res.ok) {
 				const errorData = await res.json();
-				console.log("Error response:", errorData);
+
 				return {
 					data: null,
 					error: { message: errorData.message || errorData.error || "Category not created" },

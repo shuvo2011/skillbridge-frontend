@@ -1,5 +1,3 @@
-// app/(private)/tutor/availability/page.tsx
-
 import { AddAvailabilityForm } from "@/components/module/tutor/availability/add-availability-form";
 import { AvailabilityFilter } from "@/components/module/tutor/availability/availability-filter";
 import { AvailabilityTable } from "@/components/module/tutor/availability/availability-table";
@@ -33,7 +31,7 @@ export default async function TutorAvailabilityPage({
 				<div className="col-span-12 md:col-span-8 flex flex-col gap-4">
 					<AvailabilityFilter />
 					<AvailabilityTable availabilities={availabilities} page={pagination.page} limit={pagination.limit} />
-					<PaginationControls meta={pagination} /> {/* ← page.tsx এ থাকবে */}
+					<PaginationControls meta={pagination} />
 				</div>
 			</div>
 		</div>

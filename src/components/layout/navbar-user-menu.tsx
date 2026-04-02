@@ -1,4 +1,3 @@
-// components/layout/navbar-user-menu.tsx
 "use client";
 
 import { LayoutDashboard, LogOut, User, ChevronDown } from "lucide-react";
@@ -11,7 +10,7 @@ import { toast } from "sonner";
 const BRAND = "#210095";
 
 type UserMenuProps = {
-	user: { name: string; email: string; role: string; image?: string | null }; // ← image add
+	user: { name: string; email: string; role: string; image?: string | null };
 	dashboardHref: string;
 };
 
@@ -49,7 +48,6 @@ export function NavbarUserMenu({ user, dashboardHref }: UserMenuProps) {
 				onClick={() => setOpen((p) => !p)}
 				className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl hover:bg-black/5 transition-colors"
 			>
-				{/* Avatar */}
 				<div
 					className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-sm"
 					style={{ background: BRAND }}
@@ -61,7 +59,6 @@ export function NavbarUserMenu({ user, dashboardHref }: UserMenuProps) {
 					)}
 				</div>
 
-				{/* Name + role */}
 				<div className="flex flex-col items-start leading-tight">
 					<span className="text-sm font-semibold text-gray-800">{user.name}</span>
 					<span className="text-[0.65rem] text-gray-400 capitalize">{user.role.toLowerCase()}</span>
@@ -73,16 +70,13 @@ export function NavbarUserMenu({ user, dashboardHref }: UserMenuProps) {
 				/>
 			</button>
 
-			{/* Dropdown */}
 			{open && (
 				<div className="absolute right-0 top-full mt-2 w-52 bg-white rounded-2xl shadow-xl border border-gray-100 py-1.5 z-50 overflow-hidden">
-					{/* User info */}
 					<div className="px-4 py-2.5 border-b border-gray-50">
 						<p className="text-xs font-semibold text-gray-800 truncate">{user.name}</p>
 						<p className="text-[0.7rem] text-gray-400 truncate">{user.email}</p>
 					</div>
 
-					{/* Menu items */}
 					<div className="py-1">
 						<Link
 							href={dashboardHref}
@@ -102,7 +96,6 @@ export function NavbarUserMenu({ user, dashboardHref }: UserMenuProps) {
 						</Link>
 					</div>
 
-					{/* Logout */}
 					<div className="border-t border-gray-50 pt-1">
 						<button
 							onClick={handleLogout}

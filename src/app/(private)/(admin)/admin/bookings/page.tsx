@@ -1,5 +1,3 @@
-// app/(private)/admin/bookings/page.tsx
-
 import { AdminBookingsClient } from "@/components/module/admin/bookings/admin-bookings-client";
 import { adminService } from "@/services/admin.service";
 

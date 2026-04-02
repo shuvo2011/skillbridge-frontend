@@ -23,7 +23,6 @@ export const userService = {
 			const session = await res.json();
 			return { data: session, error: null };
 		} catch (error) {
-			console.error("Session fetch error:", error);
 			return { data: null, error: "Something went wrong" };
 		}
 	},

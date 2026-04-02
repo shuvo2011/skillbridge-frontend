@@ -1,4 +1,3 @@
-// components/module/category/editCategoryDialog.tsx
 "use client";
 
 import { updateCategory } from "@/actions/category.action";

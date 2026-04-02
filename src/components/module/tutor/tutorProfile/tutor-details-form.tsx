@@ -1,4 +1,3 @@
-// components/module/tutor-profile/tutor-details-form.tsx
 "use client";
 
 import { updateTutorProfile } from "@/actions/tutor.action";
@@ -50,7 +49,6 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 			return;
 		}
 
-		// instant preview
 		setPreview(URL.createObjectURL(file));
 
 		setUploading(true);
@@ -65,7 +63,7 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 
 		if (result.error) {
 			toast.error(result.error.message, { id: toastId });
-			setPreview(currentImage ?? null); // rollback
+			setPreview(currentImage ?? null);
 			return;
 		}
 
@@ -112,7 +110,6 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 				>
 					<FieldGroup>
 						<div className="grid grid-cols-6 gap-4">
-							{/* Profile Picture */}
 							<div className="col-span-6">
 								<FieldLabel>Profile Picture</FieldLabel>
 								<div className="mt-2 flex items-center gap-4">
@@ -147,7 +144,6 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 								</div>
 							</div>
 
-							{/* Qualification - Full Row */}
 							<div className="col-span-6">
 								<form.Field
 									name="qualification"
@@ -169,7 +165,6 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 								/>
 							</div>
 
-							{/* Experience and Phone - 2 Columns */}
 							<div className="col-span-6 md:col-span-3">
 								<form.Field
 									name="experienceYears"
@@ -213,7 +208,6 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 								/>
 							</div>
 
-							{/* Price - Full Row */}
 							<div className="col-span-6">
 								<form.Field
 									name="price"
@@ -240,7 +234,6 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 								/>
 							</div>
 
-							{/* Address - Full Row */}
 							<div className="col-span-6">
 								<form.Field
 									name="address"
@@ -262,7 +255,6 @@ export function TutorDetailsForm({ profile, currentImage }: { profile?: TutorPro
 								/>
 							</div>
 
-							{/* Bio - Full Row */}
 							<div className="col-span-6">
 								<form.Field
 									name="bio"

@@ -53,7 +53,7 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
 				<nav className="flex-1 px-3 pb-4 flex flex-col gap-1">
 					{links.map((item) => {
 						const Icon = item.icon;
-						const isActive = pathname === item.href; // ← pathname দিয়ে check করো
+						const isActive = pathname === item.href;
 						return (
 							<Link key={item.href} href={item.href}>
 								<button

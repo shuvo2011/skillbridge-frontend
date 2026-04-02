@@ -1,4 +1,3 @@
-// app/(private)/(admin)/layout.tsx
 "use client";
 import { authClient } from "@/lib/auth-client";
 import type { ReactNode } from "react";

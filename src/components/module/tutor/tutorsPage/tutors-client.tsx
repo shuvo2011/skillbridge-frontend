@@ -1,4 +1,3 @@
-// components/module/tutorPage/tutors-client.tsx
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
@@ -101,7 +100,6 @@ export default function TutorsClient({ tutors }: { tutors: Tutor[] }) {
 	return (
 		<div className="min-h-screen bg-[#f7f6fb]">
 			<div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-				{/* Heading */}
 				<div className="mb-8">
 					<div
 						className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full border mb-4"
@@ -130,7 +128,6 @@ export default function TutorsClient({ tutors }: { tutors: Tutor[] }) {
 					</p>
 				)}
 
-				{/* Grid */}
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
 					{visible.map((t, i) => (
 						<TutorCard key={t.id} tutor={t} index={i} />

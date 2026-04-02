@@ -26,30 +26,19 @@ interface TopbarProps {
 }
 
 export default function Topbar({ onMenuClick, user, onLogout }: TopbarProps) {
-	console.log(user);
 	return (
 		<header className="h-16 border-b border-border bg-white flex items-center px-4 lg:px-6 gap-4 sticky top-0 z-20">
-			{/* Mobile menu toggle */}
 			<button onClick={onMenuClick} className="lg:hidden text-brand-slate hover:text-brand-navy">
 				<Menu className="w-5 h-5" />
 			</button>
 
-			{/* Welcome message */}
 			<div className="flex-1">
 				<h1 className="text-sm font-semibold text-brand-navy hidden sm:block">
 					Welcome back, {user.name.split(" ")[0]} 👋
 				</h1>
 			</div>
 
-			{/* Right side */}
 			<div className="flex items-center gap-2">
-				{/* Notifications */}
-				{/* <Button variant="ghost" size="icon" className="relative text-brand-slate hover:text-brand-navy">
-					<Bell className="w-4 h-4" />
-					<span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-brand-violet" />
-				</Button> */}
-
-				{/* User dropdown */}
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<button className="flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-xl hover:bg-brand-peach transition-colors outline-none">

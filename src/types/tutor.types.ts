@@ -53,7 +53,7 @@ export type TutorDetail = {
 	address?: string;
 	isFeatured: boolean;
 	price?: number;
-	user: { name: string; email: string; image?: string | null };
+	user: { name: string; email: string; image?: string | null; banned: boolean };
 	tutorCategories: { id: string; category: { id: string; name: string } }[];
 	availability: Availability[];
 	reviews: Review[];

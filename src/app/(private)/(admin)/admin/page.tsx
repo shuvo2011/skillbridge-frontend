@@ -1,4 +1,3 @@
-// app/(private)/admin/page.tsx — server component
 import { AdminDashboardClient } from "@/components/module/admin/dashboard/admin-dashboard-client";
 import { adminService } from "@/services/admin.service";
 

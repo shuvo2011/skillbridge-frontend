@@ -1,4 +1,3 @@
-// actions/availability.action.ts
 "use server";
 
 import { availabilityService } from "@/services/availability.service";

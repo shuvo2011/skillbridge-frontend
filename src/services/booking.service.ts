@@ -1,4 +1,3 @@
-// services/booking.service.ts
 import { env } from "@/env";
 import { cookies } from "next/headers";
 

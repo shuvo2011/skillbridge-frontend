@@ -1,4 +1,3 @@
-// components/module/admin/bookings/admin-bookings-client.tsx
 "use client";
 
 import { useState } from "react";
@@ -88,7 +87,6 @@ export function AdminBookingsClient({ bookings }: { bookings: Booking[] }) {
 				</p>
 			</div>
 
-			{/* Filter bar */}
 			<div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 space-y-3">
 				<div className="flex flex-col sm:flex-row gap-3">
 					<div className="relative flex-1">
@@ -155,7 +153,6 @@ export function AdminBookingsClient({ bookings }: { bookings: Booking[] }) {
 				)}
 			</div>
 
-			{/* Table */}
 			<div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
 				<Table>
 					<TableHeader>
@@ -194,7 +191,6 @@ export function AdminBookingsClient({ bookings }: { bookings: Booking[] }) {
 								const status = STATUS_CONFIG[booking.status];
 								return (
 									<TableRow key={booking.id} className="hover:bg-gray-50/60 transition-colors">
-										{/* Student */}
 										<TableCell className="pl-5 py-3.5">
 											<div className="flex items-center gap-2.5">
 												{booking.student.user.image ? (
@@ -218,7 +214,6 @@ export function AdminBookingsClient({ bookings }: { bookings: Booking[] }) {
 											</div>
 										</TableCell>
 
-										{/* Tutor */}
 										<TableCell className="py-3.5">
 											<div className="flex items-center gap-2.5">
 												{booking.tutor.user.image ? (
@@ -242,7 +237,6 @@ export function AdminBookingsClient({ bookings }: { bookings: Booking[] }) {
 											</div>
 										</TableCell>
 
-										{/* Subject */}
 										<TableCell className="py-3.5">
 											{booking.category ? (
 												<span
@@ -256,7 +250,6 @@ export function AdminBookingsClient({ bookings }: { bookings: Booking[] }) {
 											)}
 										</TableCell>
 
-										{/* Date */}
 										<TableCell className="py-3.5">
 											<div className="flex items-center gap-1.5 text-sm text-gray-700 whitespace-nowrap">
 												<CalendarDays size={12} style={{ color: BRAND }} />
@@ -264,7 +257,6 @@ export function AdminBookingsClient({ bookings }: { bookings: Booking[] }) {
 											</div>
 										</TableCell>
 
-										{/* Time */}
 										<TableCell className="py-3.5">
 											<div className="flex items-center gap-1.5 text-sm text-gray-700 whitespace-nowrap">
 												<Clock size={12} style={{ color: BRAND }} />
@@ -272,14 +264,12 @@ export function AdminBookingsClient({ bookings }: { bookings: Booking[] }) {
 											</div>
 										</TableCell>
 
-										{/* Price */}
 										<TableCell className="py-3.5">
 											<span className="text-sm font-semibold" style={{ color: BRAND }}>
 												৳ {booking.price ?? 0}
 											</span>
 										</TableCell>
 
-										{/* Status */}
 										<TableCell className="py-3.5 pr-5">
 											<span
 												className={`inline-flex items-center gap-1.5 text-[0.72rem] font-semibold px-2.5 py-1 rounded-full border whitespace-nowrap ${status.className}`}
@@ -295,7 +285,6 @@ export function AdminBookingsClient({ bookings }: { bookings: Booking[] }) {
 					</TableBody>
 				</Table>
 
-				{/* Pagination */}
 				{totalPages > 1 && (
 					<div className="flex items-center justify-between px-5 py-3.5 border-t border-gray-100 bg-gray-50/50">
 						<p className="text-xs text-gray-500">

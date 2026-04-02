@@ -1,4 +1,3 @@
-// services/tutor.service.ts
 import { env } from "@/env";
 import { Tutor } from "@/types/tutor.types";
 import { cookies } from "next/headers";
@@ -23,7 +22,7 @@ export const tutorService = {
 			return { data: null, error: { message: "Something Went Wrong" } };
 		}
 	},
-	// services/tutor.service.ts
+
 	updateMyProfile: async (profileData: {
 		bio?: string;
 		qualification?: string;

@@ -35,7 +35,6 @@ export default function ContactPage() {
 		},
 		validators: { onSubmit: formSchema },
 		onSubmit: async ({ value }) => {
-			console.log("Contact form submitted:", value);
 			toast.success("Message sent successfully!");
 			form.reset();
 		},
@@ -43,7 +42,6 @@ export default function ContactPage() {
 
 	return (
 		<main className="bg-white text-gray-800">
-			{/* Hero */}
 			<section className="py-20 px-6 text-center" style={{ background: "#f9f7ff" }}>
 				<div className="max-w-2xl mx-auto">
 					<span
@@ -62,10 +60,8 @@ export default function ContactPage() {
 				</div>
 			</section>
 
-			{/* Content */}
 			<section className="py-20 px-6">
 				<div className="max-w-5xl mx-auto grid sm:grid-cols-2 gap-12">
-					{/* Contact info */}
 					<div className="flex flex-col gap-6">
 						<h2 className="text-2xl font-extrabold" style={{ color: "#210095" }}>
 							Get in touch
@@ -93,7 +89,6 @@ export default function ContactPage() {
 						</div>
 					</div>
 
-					{/* Form */}
 					<div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
 						<h3 className="text-lg font-bold text-gray-800 mb-6">Send us a message</h3>
 						<form

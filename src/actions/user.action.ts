@@ -13,8 +13,7 @@ export const updateUserInfo = async (data: { name: string; email: string }) => {
 			.join("; ");
 
 		const res = await fetch(`${env.API_URL}/api/users/update`, {
-			// ← fix
-			method: "PATCH", // ← fix
+			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 				Cookie: cookieHeader,
@@ -34,7 +33,6 @@ export const updateUserInfo = async (data: { name: string; email: string }) => {
 		return { data: null, error: { message: "Something Went Wrong" } };
 	}
 };
-// actions/user.action.ts এ add করো
 export const changePassword = async (data: { currentPassword: string; newPassword: string }) => {
 	try {
 		const cookieStore = await cookies();

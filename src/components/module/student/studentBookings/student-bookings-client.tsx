@@ -1,4 +1,3 @@
-// components/module/student/studentBookings/student-bookings-client.tsx
 "use client";
 
 import { useState } from "react";
@@ -22,7 +21,6 @@ import { cancelBookingAction } from "@/actions/booking.action";
 const BRAND = "#210095";
 const PER_PAGE = 10;
 
-// ─── Types ────────────────────────────────────────────────────────────────────
 type BookingStatus = "CONFIRMED" | "COMPLETED" | "CANCELLED";
 
 type Booking = {
@@ -45,7 +43,6 @@ type Booking = {
 	price?: string | number;
 };
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 const formatTime = (time: string) => {
 	const [hours, minutes] = time.split(":").map(Number);
 	const period = hours >= 12 ? "PM" : "AM";
@@ -68,14 +65,12 @@ const STATUS_CONFIG: Record<BookingStatus, { label: string; icon: any; className
 
 const STATUS_FILTERS = ["All", "CONFIRMED", "COMPLETED", "CANCELLED"] as const;
 
-// ─── Main Component ───────────────────────────────────────────────────────────
 export default function StudentBookingsClient({ bookings }: { bookings: Booking[] }) {
 	const [search, setSearch] = useState("");
 	const [statusFilter, setStatusFilter] = useState<"All" | BookingStatus>("All");
 	const [page, setPage] = useState(1);
 	const [cancellingId, setCancellingId] = useState<string | null>(null);
 
-	// Filter
 	const filtered = bookings.filter((b) => {
 		const q = search.toLowerCase();
 		const matchSearch =
@@ -87,7 +82,6 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 		return matchSearch && matchStatus;
 	});
 
-	// Pagination
 	const totalPages = Math.ceil(filtered.length / PER_PAGE);
 	const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
@@ -116,7 +110,6 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 
 	return (
 		<div className="space-y-5">
-			{/* Page header */}
 			<div>
 				<h1 className="text-xl font-bold text-gray-900">My Bookings</h1>
 				<p className="text-sm text-gray-500 mt-0.5">
@@ -124,10 +117,8 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 				</p>
 			</div>
 
-			{/* Filter bar */}
 			<div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 space-y-3">
 				<div className="flex flex-col sm:flex-row gap-3">
-					{/* Search */}
 					<div className="relative flex-1">
 						<Search
 							size={14}
@@ -157,7 +148,6 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 						)}
 					</div>
 
-					{/* Status pills */}
 					<div className="flex gap-1.5 flex-wrap items-center">
 						{STATUS_FILTERS.map((s) => (
 							<button
@@ -195,7 +185,6 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 				)}
 			</div>
 
-			{/* Table */}
 			<div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
 				<Table>
 					<TableHeader>
@@ -239,7 +228,6 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 
 								return (
 									<TableRow key={booking.id} className="hover:bg-gray-50/60 transition-colors">
-										{/* Tutor */}
 										<TableCell className="pl-5 py-3.5">
 											<div className="flex items-center gap-2.5">
 												{booking.tutor.user.image ? (
@@ -270,7 +258,6 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 											</div>
 										</TableCell>
 
-										{/* Subject */}
 										<TableCell className="py-3.5">
 											{booking.category ? (
 												<span
@@ -284,7 +271,6 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 											)}
 										</TableCell>
 
-										{/* Date */}
 										<TableCell className="py-3.5">
 											<div className="flex items-center gap-1.5 text-sm text-gray-700 whitespace-nowrap">
 												<CalendarDays size={12} style={{ color: BRAND }} />
@@ -292,7 +278,6 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 											</div>
 										</TableCell>
 
-										{/* Time */}
 										<TableCell className="py-3.5">
 											<div className="flex items-center gap-1.5 text-sm text-gray-700 whitespace-nowrap">
 												<Clock size={12} style={{ color: BRAND }} />
@@ -300,14 +285,13 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 											</div>
 										</TableCell>
 
-										{/* Day */}
 										<TableCell className="py-3.5">
 											<span className="text-sm text-gray-600 font-medium">
 												{booking.availability.dayOfWeek.charAt(0) +
 													booking.availability.dayOfWeek.slice(1).toLowerCase()}
 											</span>
 										</TableCell>
-										{/* Price */}
+
 										<TableCell className="py-3.5">
 											{booking.price ? (
 												<span className="text-sm font-semibold" style={{ color: BRAND }}>
@@ -317,7 +301,7 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 												<span className="text-xs text-gray-400">—</span>
 											)}
 										</TableCell>
-										{/* Status */}
+
 										<TableCell className="py-3.5">
 											<span
 												className={`inline-flex items-center gap-1.5 text-[0.72rem] font-semibold px-2.5 py-1 rounded-full border whitespace-nowrap ${status.className}`}
@@ -327,7 +311,6 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 											</span>
 										</TableCell>
 
-										{/* Actions */}
 										<TableCell className="py-3.5 pr-5 text-right">
 											{booking.status === "CONFIRMED" ? (
 												<button
@@ -353,7 +336,6 @@ export default function StudentBookingsClient({ bookings }: { bookings: Booking[
 					</TableBody>
 				</Table>
 
-				{/* Pagination */}
 				{totalPages > 1 && (
 					<div className="flex items-center justify-between px-5 py-3.5 border-t border-gray-100 bg-gray-50/50">
 						<p className="text-xs text-gray-500">

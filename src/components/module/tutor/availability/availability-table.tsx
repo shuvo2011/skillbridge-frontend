@@ -1,4 +1,3 @@
-// components/module/tutor-availability/availability-table.tsx
 "use client";
 
 import { Badge } from "@/components/ui/badge";
@@ -10,8 +9,6 @@ import { toast } from "sonner";
 import { deleteAvailability } from "@/actions/availability.action";
 import { useState } from "react";
 import { EditAvailabilityDialog } from "./edit-availability-dialog";
-import { AvailabilitySearch } from "./availability-search";
-import PaginationControls from "@/components/ui/pagination-controls";
 
 type Availability = {
 	id: string;
@@ -112,7 +109,7 @@ export function AvailabilityTable({
 					)}
 				</TableBody>
 			</Table>
-			{/* Dialog */}
+
 			{editItem && (
 				<EditAvailabilityDialog availability={editItem} open={!!editItem} onClose={() => setEditItem(null)} />
 			)}

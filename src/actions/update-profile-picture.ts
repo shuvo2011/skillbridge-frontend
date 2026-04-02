@@ -1,4 +1,3 @@
-// actions/update-profile-picture.ts
 "use server";
 
 import cloudinary from "@/lib/cloudinary";
@@ -7,7 +6,6 @@ import { env } from "@/env";
 
 const extractPublicId = (url: string): string | null => {
 	try {
-		// https://res.cloudinary.com/cloud/image/upload/v123/skillbridge/avatars/abc.jpg
 		const match = url.match(/\/image\/upload\/(?:v\d+\/)?(.+)\.[a-z]+$/);
 		return match ? match[1] : null;
 	} catch {
@@ -19,7 +17,6 @@ export const updateProfilePicture = async (formData: FormData) => {
 	try {
 		const file = formData.get("image") as File;
 
-		// session থেকে userId নাও
 		const cookieStore = await cookies();
 		const cookieHeader = cookieStore
 			.getAll()
@@ -44,7 +41,7 @@ export const updateProfilePicture = async (formData: FormData) => {
 
 		const uploaded = await cloudinary.uploader.upload(dataUri, {
 			folder: "skillbridge/avatars",
-			public_id: userId, // ✅ userId = unique, always same file
+			public_id: userId,
 			overwrite: true,
 			transformation: [{ width: 350, height: 350, crop: "fill", gravity: "face" }],
 		});
@@ -66,7 +63,6 @@ export const updateProfilePicture = async (formData: FormData) => {
 
 		return { data: await res.json(), error: null };
 	} catch (error) {
-		console.error("updateProfilePicture error:", error);
 		return { data: null, error: { message: "Something Went Wrong" } };
 	}
 };

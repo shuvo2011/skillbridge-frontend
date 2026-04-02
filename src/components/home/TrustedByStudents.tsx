@@ -12,7 +12,7 @@ const cards = [
 		cardBg: "bg-teal-50",
 		shadowBg: "bg-brand-purple/30",
 		avatarBg: "bg-brand-peach",
-		align: "right", // avatar on right
+		align: "right",
 	},
 	{
 		icon: Star,
@@ -22,7 +22,7 @@ const cards = [
 		cardBg: "bg-teal-50",
 		shadowBg: "bg-brand-purple/30",
 		avatarBg: "bg-brand-peach",
-		align: "left", // avatar on left
+		align: "left",
 	},
 ];
 
@@ -40,11 +40,8 @@ export default function TrustedByStudents() {
 	return (
 		<section className="w-full bg-white lg:py-20 py-10 px-6">
 			<div className="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-				{/* LEFT — Stacked cards */}
 				<div className="relative flex flex-col gap-6 py-8 px-4">
-					{/* Card 1 — top right offset */}
 					<div className="relative self-end w-[85%]">
-						{/* Shadow layer */}
 						<div className="absolute -bottom-3 -left-3 w-full h-full rounded-2xl bg-brand-purple/25" />
 						<div className="relative bg-teal-50 rounded-2xl p-5 flex items-center gap-4 shadow-sm">
 							<div className="flex flex-col flex-1">
@@ -64,9 +61,7 @@ export default function TrustedByStudents() {
 						</div>
 					</div>
 
-					{/* Card 2 — bottom left offset */}
 					<div className="relative self-start w-[85%]">
-						{/* Shadow layer */}
 						<div className="absolute -bottom-3 -right-3 w-full h-full rounded-2xl bg-brand-purple/25" />
 						<div className="relative bg-teal-50 rounded-2xl p-5 flex items-center gap-4 shadow-sm">
 							<div className="w-14 h-14 rounded-full bg-brand-peach border-2 border-white shrink-0 overflow-hidden relative">
@@ -86,14 +81,12 @@ export default function TrustedByStudents() {
 						</div>
 					</div>
 
-					{/* Stat badge */}
 					<div className="absolute top-2 left-0 bg-white border border-brand-purple/20 rounded-xl px-3 py-2 shadow-md flex items-center gap-2">
 						<Users className="w-4 h-4 text-brand-violet" />
 						<span className="text-xs font-bold text-brand-navy">Trusted by students</span>
 					</div>
 				</div>
 
-				{/* RIGHT — Text */}
 				<div className="flex flex-col gap-5">
 					<h2 className="text-4xl lg:text-5xl font-extrabold text-brand-navy leading-tight">
 						Trusted by
@@ -105,7 +98,6 @@ export default function TrustedByStudents() {
 						your career on this platform.
 					</p>
 
-					{/* Stats row */}
 					<div className="flex gap-6 mt-2">
 						<div>
 							<p className="text-2xl font-extrabold text-brand-violet">20K+</p>
