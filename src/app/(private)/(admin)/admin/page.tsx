@@ -1,17 +1,13 @@
-"use client";
-import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+// app/(private)/admin/page.tsx — server component
+import { AdminDashboardClient } from "@/components/module/admin/dashboard/admin-dashboard-client";
+import { adminService } from "@/services/admin.service";
 
-export default function AdminDashboardLayout() {
-	const { data: session, isPending } = authClient.useSession();
+export default async function AdminDashboardPage() {
+	const res = await adminService.getStats();
 
-	if (isPending) return null;
-	if (!session) redirect("/login");
-	if (session.user.role !== "ADMIN") redirect("/login");
+	const [statsRes, trendsRes] = await Promise.all([adminService.getStats(), adminService.getBookingTrends()]);
 
-	return (
-		<div>
-			<h1>This is Admin Dashboard Layout Page</h1>
-		</div>
-	);
+	const stats = statsRes.data;
+	const trends = trendsRes.data || [];
+	return <AdminDashboardClient stats={stats} trends={trends} />;
 }

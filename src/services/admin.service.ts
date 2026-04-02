@@ -71,4 +71,42 @@ export const adminService = {
 			return { data: null, error: { message: "Something Went Wrong" } };
 		}
 	},
+	getStats: async () => {
+		try {
+			const cookieStore = await cookies();
+			const cookieHeader = cookieStore
+				.getAll()
+				.map((c) => `${c.name}=${c.value}`)
+				.join("; ");
+
+			const res = await fetch(`${env.API_URL}/api/admin/stats`, {
+				headers: { Cookie: cookieHeader },
+				next: { tags: ["adminStats"] },
+			});
+
+			const data = await res.json();
+			return { data: data.data, error: null };
+		} catch {
+			return { data: null, error: { message: "Something Went Wrong" } };
+		}
+	},
+	getBookingTrends: async () => {
+		try {
+			const cookieStore = await cookies();
+			const cookieHeader = cookieStore
+				.getAll()
+				.map((c) => `${c.name}=${c.value}`)
+				.join("; ");
+
+			const res = await fetch(`${env.API_URL}/api/admin/booking-trends`, {
+				headers: { Cookie: cookieHeader },
+				next: { tags: ["bookingTrends"] },
+			});
+
+			const data = await res.json();
+			return { data: data.data, error: null };
+		} catch {
+			return { data: null, error: { message: "Something Went Wrong" } };
+		}
+	},
 };

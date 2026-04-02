@@ -18,9 +18,6 @@ export default async function TutorProfilePage() {
 	const myCategories = myCategoriesRes.data || [];
 	const allCategories = allCategoriesRes.data?.data || [];
 
-	console.log("myCategories:", myCategoriesRes);
-	console.log("allCategories:", allCategoriesRes);
-
 	const user = {
 		name: session?.user?.name || "",
 		email: session?.user?.email || "",
