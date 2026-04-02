@@ -16,13 +16,10 @@ import { z } from "zod";
 const tutorDetailsSchema = z.object({
 	bio: z.string().max(1000, "Bio must be less than 1000 characters"),
 	qualification: z.string().max(255, "Qualification must be less than 255 characters"),
-	experienceYears: z.coerce
-		.number()
-		.min(0, "Experience cannot be negative")
-		.max(50, "Experience must be less than 50 years"),
+	experienceYears: z.number().min(0, "Experience cannot be negative").max(50, "Experience must be less than 50 years"),
 	phone: z.string().max(15, "Phone number must be less than 15 characters"),
 	address: z.string().max(255, "Address must be less than 255 characters"),
-	price: z.coerce.number().min(0, "Price cannot be negative").max(5000, "Price must be less than 5000 BDT"),
+	price: z.number().min(0, "Price cannot be negative").max(5000, "Price must be less than 5000 BDT"),
 });
 
 type TutorProfile = {
