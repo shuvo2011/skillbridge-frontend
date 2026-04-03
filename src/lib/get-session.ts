@@ -26,7 +26,7 @@ export const getSession = async (): Promise<Session> => {
 		.join("; ");
 
 	try {
-		const res = await fetch(`${env.AUTH_URL}/get-session`, {
+		const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/auth/get-session`, {
 			headers: { Cookie: cookieHeader },
 		});
 

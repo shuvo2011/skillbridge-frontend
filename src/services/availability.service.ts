@@ -1,23 +1,18 @@
 import { env } from "@/env";
 import { cookies } from "next/headers";
 
-const API_URL = env.API_URL;
+const NEXT_PUBLIC_BACKEND_URL = env.NEXT_PUBLIC_BACKEND_URL;
 
 export const availabilityService = {
 	getAvailabilities: async (params?: { page?: string; search?: string }) => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((cookie) => `${cookie.name}=${cookie.value}`)
-				.join("; ");
-
-			const url = new URL(`${API_URL}/api/tutor/availability`);
+						const url = new URL(`${NEXT_PUBLIC_BACKEND_URL}/api/tutor/availability`);
 			if (params?.page) url.searchParams.append("page", params.page);
 			if (params?.search) url.searchParams.append("search", params.search);
 
 			const res = await fetch(url.toString(), {
-				headers: { Cookie: cookieHeader },
+				headers: { Cookie: cookieStore.toString() },
 				next: { tags: ["availabilityItems"] },
 			});
 
@@ -36,16 +31,11 @@ export const availabilityService = {
 	createAvailability: async (payload: { dayOfWeek: string; availableFrom: string; availableTo: string }) => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((cookie) => `${cookie.name}=${cookie.value}`)
-				.join("; ");
-
-			const res = await fetch(`${API_URL}/api/tutor/availability`, {
+						const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/tutor/availability`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					Cookie: cookieHeader,
+					Cookie: cookieStore.toString(),
 				},
 				body: JSON.stringify(payload),
 			});
@@ -65,14 +55,9 @@ export const availabilityService = {
 	deleteAvailability: async (id: string) => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((cookie) => `${cookie.name}=${cookie.value}`)
-				.join("; ");
-
-			const res = await fetch(`${API_URL}/api/tutor/availability/${id}`, {
+						const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/tutor/availability/${id}`, {
 				method: "DELETE",
-				headers: { Cookie: cookieHeader },
+				headers: { Cookie: cookieStore.toString() },
 			});
 
 			if (!res.ok) {
@@ -92,16 +77,11 @@ export const availabilityService = {
 	) => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((cookie) => `${cookie.name}=${cookie.value}`)
-				.join("; ");
-
-			const res = await fetch(`${API_URL}/api/tutor/availability/${id}`, {
+						const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/tutor/availability/${id}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
-					Cookie: cookieHeader,
+					Cookie: cookieStore.toString(),
 				},
 				body: JSON.stringify(payload),
 			});

@@ -5,13 +5,8 @@ export const tutorCategoryService = {
 	getMyCategories: async () => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((c) => `${c.name}=${c.value}`)
-				.join("; ");
-
-			const res = await fetch(`${env.API_URL}/api/tutor/categories`, {
-				headers: { Cookie: cookieHeader },
+						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutor/categories`, {
+				headers: { Cookie: cookieStore.toString() },
 				next: { tags: ["tutorCategories"] },
 			});
 
@@ -25,14 +20,9 @@ export const tutorCategoryService = {
 	addCategory: async (categoryId: string) => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((c) => `${c.name}=${c.value}`)
-				.join("; ");
-
-			const res = await fetch(`${env.API_URL}/api/tutor/categories`, {
+						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutor/categories`, {
 				method: "POST",
-				headers: { "Content-Type": "application/json", Cookie: cookieHeader },
+				headers: { "Content-Type": "application/json", Cookie: cookieStore.toString() },
 				body: JSON.stringify({ categoryId }),
 			});
 
@@ -47,14 +37,9 @@ export const tutorCategoryService = {
 	removeCategory: async (id: string) => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((c) => `${c.name}=${c.value}`)
-				.join("; ");
-
-			const res = await fetch(`${env.API_URL}/api/tutor/categories/${id}`, {
+						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutor/categories/${id}`, {
 				method: "DELETE",
-				headers: { Cookie: cookieHeader },
+				headers: { Cookie: cookieStore.toString() },
 			});
 
 			if (!res.ok) {

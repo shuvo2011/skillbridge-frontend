@@ -3,7 +3,7 @@ import { env } from "@/env";
 
 export async function GET(req: NextRequest) {
 	const path = req.nextUrl.pathname.replace("/api/proxy", "");
-	const url = `${env.API_URL}${path}${req.nextUrl.search}`;
+	const url = `${env.NEXT_PUBLIC_BACKEND_URL}${path}${req.nextUrl.search}`;
 
 	const res = await fetch(url, {
 		headers: {
@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
 	const path = req.nextUrl.pathname.replace("/api/proxy", "");
-	const url = `${env.API_URL}${path}${req.nextUrl.search}`;
+	const url = `${env.NEXT_PUBLIC_BACKEND_URL}${path}${req.nextUrl.search}`;
 	const body = await req.text();
 
 	const res = await fetch(url, {

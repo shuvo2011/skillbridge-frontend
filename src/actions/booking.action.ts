@@ -12,7 +12,7 @@ export const createBooking = async (data: { availabilityId: string; sessionDate:
 			.map((c) => `${c.name}=${c.value}`)
 			.join("; ");
 
-		const res = await fetch(`${env.API_URL}/api/bookings`, {
+		const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/bookings`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -41,7 +41,7 @@ export const cancelBookingAction = async (bookingId: string) => {
 			.map((c) => `${c.name}=${c.value}`)
 			.join("; ");
 
-		const res = await fetch(`${env.API_URL}/api/bookings/${bookingId}/cancel`, {
+		const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/bookings/${bookingId}/cancel`, {
 			method: "PATCH",
 			headers: { Cookie: cookieHeader },
 		});
@@ -67,7 +67,7 @@ export const completeSessionAction = async (sessionId: string) => {
 			.map((c) => `${c.name}=${c.value}`)
 			.join("; ");
 
-		const res = await fetch(`${env.API_URL}/api/bookings/${sessionId}/complete`, {
+		const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/bookings/${sessionId}/complete`, {
 			method: "PATCH",
 			headers: { Cookie: cookieHeader },
 		});

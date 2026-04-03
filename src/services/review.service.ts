@@ -7,13 +7,8 @@ import { revalidatePath } from "next/cache";
 export const getReviewableBookings = async (tutorId: string) => {
 	try {
 		const cookieStore = await cookies();
-		const cookieHeader = cookieStore
-			.getAll()
-			.map((c) => `${c.name}=${c.value}`)
-			.join("; ");
-
-		const res = await fetch(`${env.API_URL}/api/bookings/reviewable?tutorId=${tutorId}`, {
-			headers: { Cookie: cookieHeader },
+				const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/bookings/reviewable?tutorId=${tutorId}`, {
+			headers: { Cookie: cookieStore.toString() },
 			cache: "no-store",
 		});
 
@@ -28,15 +23,10 @@ export const getReviewableBookings = async (tutorId: string) => {
 export const createReview = async (bookingId: string, rating: number, reviewText: string) => {
 	try {
 		const cookieStore = await cookies();
-		const cookieHeader = cookieStore
-			.getAll()
-			.map((c) => `${c.name}=${c.value}`)
-			.join("; ");
-
-		const res = await fetch(`${env.API_URL}/api/reviews`, {
+				const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/reviews`, {
 			method: "POST",
 			headers: {
-				Cookie: cookieHeader,
+				Cookie: cookieStore.toString(),
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({ bookingId, rating, reviewText }),

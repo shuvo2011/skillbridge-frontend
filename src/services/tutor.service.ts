@@ -6,13 +6,8 @@ export const tutorService = {
 	getMyProfile: async () => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((c) => `${c.name}=${c.value}`)
-				.join("; ");
-
-			const res = await fetch(`${env.API_URL}/api/tutors/profile`, {
-				headers: { Cookie: cookieHeader },
+						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutors/profile`, {
+				headers: { Cookie: cookieStore.toString() },
 				next: { tags: ["tutorProfile"] },
 			});
 
@@ -33,16 +28,11 @@ export const tutorService = {
 	}) => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((c) => `${c.name}=${c.value}`)
-				.join("; ");
-
-			const res = await fetch(`${env.API_URL}/api/tutors/profile`, {
+						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutors/profile`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
-					Cookie: cookieHeader,
+					Cookie: cookieStore.toString(),
 				},
 				body: JSON.stringify(profileData),
 			});
@@ -60,7 +50,7 @@ export const tutorService = {
 	},
 	getAllTutors: async () => {
 		try {
-			const res = await fetch(`${env.API_URL}/api/tutors`, {
+			const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutors`, {
 				next: { tags: ["tutors"] },
 			});
 			const data = await res.json();
@@ -71,7 +61,7 @@ export const tutorService = {
 	},
 	getTutorById: async (id: string) => {
 		try {
-			const res = await fetch(`${env.API_URL}/api/tutors/${id}`, {
+			const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutors/${id}`, {
 				next: { tags: [`tutor-${id}`] },
 			});
 			if (!res.ok) return { data: null, error: { message: "Tutor not found" } };
@@ -84,13 +74,8 @@ export const tutorService = {
 	getMySessions: async () => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((c) => `${c.name}=${c.value}`)
-				.join("; ");
-
-			const res = await fetch(`${env.API_URL}/api/bookings`, {
-				headers: { Cookie: cookieHeader },
+						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/bookings`, {
+				headers: { Cookie: cookieStore.toString() },
 				cache: "no-store",
 				next: { tags: ["tutorSessions"] },
 			});
@@ -104,13 +89,8 @@ export const tutorService = {
 	getTutorStats: async () => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((c) => `${c.name}=${c.value}`)
-				.join("; ");
-			console.log("Cookie header:", cookieHeader ? "has cookies" : "empty");
-			const res = await fetch(`${env.API_URL}/api/tutors/stats`, {
-				headers: { Cookie: cookieHeader },
+			const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutors/stats`, {
+				headers: { Cookie: cookieStore.toString() },
 				cache: "no-store",
 			});
 			const json = await res.json();

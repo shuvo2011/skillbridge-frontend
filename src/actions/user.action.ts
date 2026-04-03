@@ -12,7 +12,7 @@ export const updateUserInfo = async (data: { name: string; email: string }) => {
 			.map((c) => `${c.name}=${c.value}`)
 			.join("; ");
 
-		const res = await fetch(`${env.API_URL}/api/users/update`, {
+		const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/users/update`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
@@ -41,12 +41,12 @@ export const changePassword = async (data: { currentPassword: string; newPasswor
 			.map((c) => `${c.name}=${c.value}`)
 			.join("; ");
 
-		const res = await fetch(`${env.API_URL}/api/users/change-password`, {
+		const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/users/change-password`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 				Cookie: cookieHeader,
-				Origin: env.FRONTEND_URL,
+				Origin: env.NEXT_PUBLIC_APP_URL,
 			},
 			body: JSON.stringify({
 				currentPassword: data.currentPassword,

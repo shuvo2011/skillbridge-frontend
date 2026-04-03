@@ -5,13 +5,8 @@ export const studentService = {
 	getMyProfile: async () => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((c) => `${c.name}=${c.value}`)
-				.join("; ");
-
-			const res = await fetch(`${env.API_URL}/api/students/profile`, {
-				headers: { Cookie: cookieHeader },
+						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/students/profile`, {
+				headers: { Cookie: cookieStore.toString() },
 				next: { tags: ["studentProfile"] },
 			});
 
@@ -25,16 +20,11 @@ export const studentService = {
 	updateMyProfile: async (profileData: { phone?: string; address?: string; bio?: string }) => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((c) => `${c.name}=${c.value}`)
-				.join("; ");
-
-			const res = await fetch(`${env.API_URL}/api/students/profile`, {
+						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/students/profile`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
-					Cookie: cookieHeader,
+					Cookie: cookieStore.toString(),
 				},
 				body: JSON.stringify(profileData),
 			});
@@ -53,13 +43,8 @@ export const studentService = {
 	getMyStats: async () => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((c) => `${c.name}=${c.value}`)
-				.join("; ");
-
-			const res = await fetch(`${env.API_URL}/api/students/stats`, {
-				headers: { Cookie: cookieHeader },
+						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/students/stats`, {
+				headers: { Cookie: cookieStore.toString() },
 				cache: "no-store",
 			});
 			const json = await res.json();

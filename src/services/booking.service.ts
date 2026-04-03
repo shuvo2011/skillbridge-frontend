@@ -5,13 +5,8 @@ export const studentBookingService = {
 	getMyBookings: async () => {
 		try {
 			const cookieStore = await cookies();
-			const cookieHeader = cookieStore
-				.getAll()
-				.map((c) => `${c.name}=${c.value}`)
-				.join("; ");
-
-			const res = await fetch(`${env.API_URL}/api/bookings`, {
-				headers: { Cookie: cookieHeader },
+						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/bookings`, {
+				headers: { Cookie: cookieStore.toString() },
 				next: { tags: ["studentBookings"] },
 			});
 

@@ -13,6 +13,8 @@ const extractPublicId = (url: string): string | null => {
 	}
 };
 
+const NEXT_PUBLIC_BACKEND_URL = env.NEXT_PUBLIC_BACKEND_URL;
+
 export const updateProfilePicture = async (formData: FormData) => {
 	try {
 		const file = formData.get("image") as File;
@@ -23,7 +25,7 @@ export const updateProfilePicture = async (formData: FormData) => {
 			.map((c) => `${c.name}=${c.value}`)
 			.join("; ");
 
-		const sessionRes = await fetch(`${env.AUTH_URL}/get-session`, {
+		const sessionRes = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/auth/get-session`, {
 			headers: { Cookie: cookieHeader },
 		});
 		const session = await sessionRes.json();
@@ -46,12 +48,12 @@ export const updateProfilePicture = async (formData: FormData) => {
 			transformation: [{ width: 350, height: 350, crop: "fill", gravity: "face" }],
 		});
 
-		const res = await fetch(`${env.AUTH_URL}/update-user`, {
+		const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/auth/update-user`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 				Cookie: cookieHeader,
-				Origin: env.FRONTEND_URL,
+				Origin: env.NEXT_PUBLIC_APP_URL,
 			},
 			body: JSON.stringify({ image: uploaded.secure_url }),
 		});
