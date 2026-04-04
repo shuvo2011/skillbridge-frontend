@@ -53,7 +53,7 @@ export default async function PopularTutors() {
 										</div>
 									)}
 
-									<div className="relative w-full h-52 overflow-hidden bg-gray-100">
+									<div className="relative w-full h-80 overflow-hidden bg-gray-100">
 										{tutor.user?.image ? (
 											<Image src={tutor.user.image} alt={tutor.user.name} fill className="object-cover object-top" />
 										) : (

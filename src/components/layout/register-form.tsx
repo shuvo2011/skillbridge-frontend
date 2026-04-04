@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldSeparator } from "@/components/ui/field";
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
@@ -10,6 +10,7 @@ import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z
 	.object({
@@ -25,6 +26,7 @@ const formSchema = z
 	});
 
 export function RegisterForm({ className, ...props }: React.ComponentProps<"form">) {
+	const router = useRouter();
 	const form = useForm({
 		defaultValues: {
 			name: "",
@@ -50,6 +52,7 @@ export function RegisterForm({ className, ...props }: React.ComponentProps<"form
 				}
 
 				toast.success("User Created Successfully", { id: toastId });
+				router.push("/login");
 			} catch (err) {
 				toast.error("Something went wrong, please try again.", { id: toastId });
 			}

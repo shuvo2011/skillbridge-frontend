@@ -6,10 +6,12 @@ import { BRAND, PER_PAGE, avgRating } from "./tutor-types";
 import { TutorCard, SkeletonCard } from "./tutor-card";
 import { TutorFilters } from "./tutor-filters";
 import { Filters, Tutor } from "@/types/tutor.types";
+import { useSearchParams } from "next/navigation";
 
 export default function TutorsClient({ tutors }: { tutors: Tutor[] }) {
+	const searchParams = useSearchParams();
 	const [filters, setFilters] = useState<Filters>({
-		search: "",
+		search: searchParams.get("q") ?? "",
 		category: "All",
 		minExperience: "0",
 		sortBy: "featured",

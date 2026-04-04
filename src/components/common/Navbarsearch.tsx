@@ -6,10 +6,10 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const POPULAR = ["Mathematics", "Physics", "English", "Web Design", "UI/UX"];
 interface NavbarSearchProps {
 	className?: string;
 }
+
 export default function NavbarSearch({ className }: NavbarSearchProps) {
 	const [open, setOpen] = useState(false);
 	const [query, setQuery] = useState("");
@@ -74,23 +74,6 @@ export default function NavbarSearch({ className }: NavbarSearchProps) {
 							>
 								<X className="w-4 h-4" />
 							</button>
-						</div>
-
-						<div className="mt-3 flex items-center gap-2 flex-wrap">
-							<span className="text-[11px] text-brand-slate font-medium">Popular:</span>
-							{POPULAR.map((tag) => (
-								<button
-									key={tag}
-									onClick={() => {
-										setQuery(tag);
-										router.push(`/tutors?q=${encodeURIComponent(tag)}`);
-										setOpen(false);
-									}}
-									className="text-[11px] font-medium text-brand-violet bg-brand-violet/8 hover:bg-brand-violet hover:text-white px-2.5 py-1 rounded-full transition-colors border border-brand-violet/20"
-								>
-									{tag}
-								</button>
-							))}
 						</div>
 					</div>
 				</div>

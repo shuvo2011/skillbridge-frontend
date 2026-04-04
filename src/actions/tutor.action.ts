@@ -1,7 +1,7 @@
 "use server";
 
 import { tutorService } from "@/services/tutor.service";
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 export const updateTutorProfile = async (data: {
 	bio?: string;
@@ -12,6 +12,6 @@ export const updateTutorProfile = async (data: {
 	price?: number;
 }) => {
 	const res = await tutorService.updateMyProfile(data);
-	revalidateTag("tutorProfile", "max");
+	revalidatePath("/tutor/profile");
 	return res;
 };

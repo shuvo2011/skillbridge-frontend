@@ -8,8 +8,8 @@ Next.js frontend for SkillBridge — a platform that connects students with expe
 |--|-----|
 | **Frontend Repo** | https://github.com/shuvo2011/skillbridge-frontend |
 | **Backend Repo** | https://github.com/shuvo2011/skillbridge-backend |
-| **Frontend Live** | https://skillbridge.vercel.app |
-| **Backend Live** | https://skillbridge-api.vercel.app |
+| **Frontend Live** | https://skillbridge-frontend-beta.vercel.app |
+| **Backend Live** | https://skillbridge-backend-alpha.vercel.app |
 | **Demo Video** | https://drive.google.com/file/d/xxx/view |
 
 ## Admin Credentials
@@ -65,11 +65,9 @@ cp .env.example .env.local
 Create a `.env.local` file in the root directory:
 
 ```env
-API_URL=http://localhost:5050
-FRONTEND_URL=http://localhost:3000
-BETTER_AUTH_URL=http://localhost:3000
-AUTH_URL=http://localhost:5050/api/auth
 
+NEXT_PUBLIC_BACKEND_URL=http://localhost:5050
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret

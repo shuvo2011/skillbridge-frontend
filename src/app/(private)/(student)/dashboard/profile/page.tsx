@@ -3,7 +3,7 @@ import { StudentDetailsForm } from "@/components/module/student/studentProfile/s
 import { StudentProfileInfoForm } from "@/components/module/student/studentProfile/student-profile-info-form";
 import { getSession } from "@/lib/get-session";
 import { studentService } from "@/services/student.service";
-
+export const metadata = { title: "My Profile - Student | SkillBridge" };
 export default async function StudentProfilePage() {
 	const session = await getSession();
 	const user = {

@@ -1,6 +1,6 @@
 import { AdminDashboardClient } from "@/components/module/admin/dashboard/admin-dashboard-client";
 import { adminService } from "@/services/admin.service";
-
+export const metadata = { title: "Admin Dashboard - SkillBridge" };
 export default async function AdminDashboardPage() {
 	const res = await adminService.getStats();
 

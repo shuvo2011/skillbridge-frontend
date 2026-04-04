@@ -1,4 +1,3 @@
-import { env } from "@/env";
 import { Tutor } from "@/types/tutor.types";
 import { cookies } from "next/headers";
 
@@ -6,11 +5,11 @@ export const tutorService = {
 	getMyProfile: async () => {
 		try {
 			const cookieStore = await cookies();
-						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutors/profile`, {
+			console.log("Stats cookies:", cookieStore.toString());
+			const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/tutors/profile`, {
 				headers: { Cookie: cookieStore.toString() },
 				next: { tags: ["tutorProfile"] },
 			});
-
 			const data = await res.json();
 			return { data, error: null };
 		} catch {
@@ -28,7 +27,7 @@ export const tutorService = {
 	}) => {
 		try {
 			const cookieStore = await cookies();
-						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutors/profile`, {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/tutors/profile`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
@@ -36,21 +35,20 @@ export const tutorService = {
 				},
 				body: JSON.stringify(profileData),
 			});
-
 			if (!res.ok) {
 				const errorData = await res.json();
 				return { data: null, error: { message: errorData.message || "Failed to update" } };
 			}
-
 			const data = await res.json();
 			return { data, error: null };
 		} catch {
 			return { data: null, error: { message: "Something Went Wrong" } };
 		}
 	},
+
 	getAllTutors: async () => {
 		try {
-			const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutors`, {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/tutors`, {
 				next: { tags: ["tutors"] },
 			});
 			const data = await res.json();
@@ -59,9 +57,10 @@ export const tutorService = {
 			return { data: null, error: { message: "Something Went Wrong" } };
 		}
 	},
+
 	getTutorById: async (id: string) => {
 		try {
-			const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutors/${id}`, {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/tutors/${id}`, {
 				next: { tags: [`tutor-${id}`] },
 			});
 			if (!res.ok) return { data: null, error: { message: "Tutor not found" } };
@@ -71,28 +70,31 @@ export const tutorService = {
 			return { data: null, error: { message: "Something Went Wrong" } };
 		}
 	},
+
 	getMySessions: async () => {
 		try {
 			const cookieStore = await cookies();
-						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/bookings`, {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/bookings`, {
 				headers: { Cookie: cookieStore.toString() },
 				cache: "no-store",
 				next: { tags: ["tutorSessions"] },
 			});
-
 			const json = await res.json();
 			return { data: json.data, error: null };
 		} catch {
 			return { data: null, error: { message: "Something Went Wrong" } };
 		}
 	},
+
 	getTutorStats: async () => {
 		try {
 			const cookieStore = await cookies();
-			const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutors/stats`, {
+			console.log("Calling stats, cookie length:", cookieStore.toString().length);
+			const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/tutors/stats`, {
 				headers: { Cookie: cookieStore.toString() },
 				cache: "no-store",
 			});
+			console.log("Stats response status:", res.status);
 			const json = await res.json();
 			if (json.success)
 				return json.data as {
@@ -103,7 +105,9 @@ export const tutorService = {
 					totalRevenue: number;
 					totalStudents: number;
 				};
-		} catch {}
+		} catch (e) {
+			console.error("Stats fetch error:", e);
+		}
 		return null;
 	},
 };

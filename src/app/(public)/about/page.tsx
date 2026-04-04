@@ -1,6 +1,11 @@
 import { Users, BookOpen, Star, Shield, Target, Heart } from "lucide-react";
 import Link from "next/link";
 
+export const metadata = {
+	title: "About Us - SkillBridge",
+	description: "Learn about SkillBridge's mission to connect students with the best tutors across all subjects.",
+};
+
 const stats = [
 	{ label: "Active Students", value: "20K+" },
 	{ label: "Expert Tutors", value: "1K+" },

@@ -1,6 +1,6 @@
 import { StatsGrid } from "@/components/module/student/studentDashboard/StatsGrid";
 import { studentService } from "@/services/student.service";
-
+export const metadata = { title: "Student Dashboard - SkillBridge" };
 export default async function DashboardPage() {
 	const stats = await studentService.getMyStats();
 	return (

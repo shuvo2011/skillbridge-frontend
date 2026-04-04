@@ -44,7 +44,10 @@ const sections = [
 		content: "If you have any questions about this Privacy Policy, please contact us at hello@skillbridge.com.",
 	},
 ];
-
+export const metadata = {
+	title: "Privacy Policy - SkillBridge",
+	description: "Learn how SkillBridge collects, uses, and protects your personal information.",
+};
 export default function PrivacyPage() {
 	return (
 		<main className="bg-white">

@@ -39,6 +39,10 @@ const sections = [
 		content: "If you have questions about these terms, please contact us at hello@skillbridge.com.",
 	},
 ];
+export const metadata = {
+	title: "Terms & Conditions - SkillBridge",
+	description: "Read SkillBridge's terms and conditions for using our tutoring platform.",
+};
 
 export default function TermsPage() {
 	return (

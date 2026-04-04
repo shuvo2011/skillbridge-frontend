@@ -5,7 +5,7 @@ export const adminService = {
 	getAllUsers: async (params?: { search?: string; role?: string }) => {
 		try {
 			const cookieStore = await cookies();
-						const url = new URL(`${env.NEXT_PUBLIC_BACKEND_URL}/api/admin/users`);
+			const url = new URL(`${env.NEXT_PUBLIC_BACKEND_URL}/api/admin/users`);
 			if (params?.search) url.searchParams.append("search", params.search);
 			if (params?.role) url.searchParams.append("role", params.role);
 
@@ -24,7 +24,7 @@ export const adminService = {
 	updateUserStatus: async (id: string, banned: boolean, banReason?: string) => {
 		try {
 			const cookieStore = await cookies();
-						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/admin/users/${id}`, {
+			const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/admin/users/${id}`, {
 				method: "PATCH",
 				headers: { "Content-Type": "application/json", Cookie: cookieStore.toString() },
 				body: JSON.stringify({ banned, banReason }),
@@ -40,7 +40,7 @@ export const adminService = {
 	getAllBookings: async (params?: { search?: string; status?: string }) => {
 		try {
 			const cookieStore = await cookies();
-						const url = new URL(`${env.NEXT_PUBLIC_BACKEND_URL}/api/admin/bookings`);
+			const url = new URL(`${env.NEXT_PUBLIC_BACKEND_URL}/api/admin/bookings`);
 			if (params?.search) url.searchParams.append("search", params.search);
 			if (params?.status) url.searchParams.append("status", params.status);
 
@@ -58,7 +58,7 @@ export const adminService = {
 	getStats: async () => {
 		try {
 			const cookieStore = await cookies();
-						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/admin/stats`, {
+			const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/admin/stats`, {
 				headers: { Cookie: cookieStore.toString() },
 				next: { tags: ["adminStats"] },
 			});
@@ -72,7 +72,7 @@ export const adminService = {
 	getBookingTrends: async () => {
 		try {
 			const cookieStore = await cookies();
-						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/admin/booking-trends`, {
+			const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/admin/booking-trends`, {
 				headers: { Cookie: cookieStore.toString() },
 				next: { tags: ["bookingTrends"] },
 			});
@@ -86,7 +86,7 @@ export const adminService = {
 	toggleTutorFeatured: async (tutorProfileId: string) => {
 		try {
 			const cookieStore = await cookies();
-						const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutors/${tutorProfileId}/featured`, {
+			const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/tutors/${tutorProfileId}/featured`, {
 				method: "PATCH",
 				headers: { Cookie: cookieStore.toString() },
 			});

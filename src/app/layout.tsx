@@ -13,9 +13,12 @@ const geistMono = Geist_Mono({
 	subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-	title: "SkillBridge",
-	description: "Connect with Expert Tutors, Learn Anything",
+export const metadata = {
+	title: {
+		default: "SkillBridge",
+		template: "%s - SkillBridge",
+	},
+	description: "SkillBridge - Connect with verified tutors and enhance your skills.",
 };
 
 export default function RootLayout({

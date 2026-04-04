@@ -4,6 +4,7 @@ import { AvailabilityTable } from "@/components/module/tutor/availability/availa
 import PaginationControls from "@/components/ui/pagination-controls";
 import { availabilityService } from "@/services/availability.service";
 
+export const metadata = { title: "Availability | Tutor - SkillBridge" };
 export default async function TutorAvailabilityPage({
 	searchParams,
 }: {

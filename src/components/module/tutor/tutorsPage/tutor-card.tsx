@@ -30,7 +30,7 @@ export function TutorCard({ tutor, index }: { tutor: Tutor; index: number }) {
 
 	return (
 		<div
-			className="group rounded-2xl overflow-hidden border border-gray-100 hover:border-brand-violet/20 hover:shadow-xl hover:shadow-brand-violet/8 hover:-translate-y-1 transition-all duration-250 cursor-pointer"
+			className="group rounded-2xl overflow-hidden border border-gray-100 hover:border-brand-violet/20 hover:shadow-xl hover:shadow-brand-violet/8 hover:-translate-y-1 transition-all duration-250"
 			style={{
 				background: "#f8f8fa",
 				animation: "fadeUp 0.35s ease both",
@@ -143,13 +143,22 @@ export function TutorCard({ tutor, index }: { tutor: Tutor; index: number }) {
 					>
 						<UserRound size={13} /> View Profile
 					</Link>
-					<button
-						disabled={tutor.user.banned}
-						className="flex-1 flex items-center justify-center gap-1.5 h-10 rounded-xl text-[0.82rem] font-bold text-white transition-all hover:opacity-90 shadow-md disabled:opacity-40 disabled:cursor-not-allowed"
-						style={{ background: BRAND, boxShadow: `0 4px 14px ${BRAND}35` }}
-					>
-						<CalendarDays size={13} /> Book Now
-					</button>
+					{tutor.user.banned ? (
+						<span
+							className="flex-1 flex items-center justify-center gap-1.5 h-10 rounded-xl text-[0.82rem] font-bold text-white opacity-40 cursor-not-allowed"
+							style={{ background: BRAND }}
+						>
+							<CalendarDays size={13} /> Book Now
+						</span>
+					) : (
+						<Link
+							href={`/tutors/${tutor.id}`}
+							className="flex-1 flex items-center justify-center gap-1.5 h-10 rounded-xl text-[0.82rem] font-bold text-white transition-all hover:opacity-90 shadow-md"
+							style={{ background: BRAND, boxShadow: `0 4px 14px ${BRAND}35` }}
+						>
+							<CalendarDays size={13} /> Book Now
+						</Link>
+					)}
 				</div>
 			</div>
 

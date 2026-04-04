@@ -3,9 +3,11 @@ import { ShieldX, Mail } from "lucide-react";
 import { StatsGrid } from "@/components/module/tutor/tutorDashboard/StatsGrid";
 import { tutorService } from "@/services/tutor.service";
 
+export const metadata = { title: "Dashboard | Tutor - SkillBridge" };
+
 export default async function TutorDashboardPage() {
 	const session = await getSession();
-
+	console.log("Dashboard session:", session ? session.user.email : "null");
 	if (session?.user?.banned) {
 		return (
 			<div className="flex items-center justify-center min-h-[60vh] px-4">
@@ -36,6 +38,7 @@ export default async function TutorDashboardPage() {
 		);
 	}
 	const stats = await tutorService.getTutorStats();
+	console.log("Stats result:", stats);
 	return (
 		<div className="p-6 max-w-6xl mx-auto">
 			<div className="mb-8">

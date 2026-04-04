@@ -7,12 +7,14 @@ import { categoryService } from "@/services/category.service";
 import { tutorCategoryService } from "@/services/tutor-category.service";
 import { tutorService } from "@/services/tutor.service";
 
+export const metadata = { title: "Profile | Tutor - SkillBridge" };
+
 export default async function TutorProfilePage() {
 	const session = await getSession();
 
 	const profileRes = await tutorService.getMyProfile();
 	const myCategoriesRes = await tutorCategoryService.getMyCategories();
-	const allCategoriesRes = await categoryService.getCategories();
+	const allCategoriesRes = await categoryService.getCategories({ limit: "100" });
 
 	const profile = profileRes.data;
 	const myCategories = myCategoriesRes.data || [];

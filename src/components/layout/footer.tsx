@@ -37,8 +37,8 @@ const footerSections: FooterData[] = [
 		title: "Other Pages",
 		links: [
 			{
-				title: "Error 404",
-				href: "/error",
+				title: "FAQ",
+				href: "/faq",
 			},
 			{
 				title: "Terms & Conditions",

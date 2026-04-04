@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+export const metadata = {
+	title: "404 - Page Not Found | SkillBridge",
+	description: "The page you're looking for doesn't exist.",
+};
+
 export default function Error404Page() {
 	return (
 		<main className="min-h-[70vh] flex items-center justify-center px-6">

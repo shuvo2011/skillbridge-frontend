@@ -1,22 +1,17 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { env } from "@/env";
 import { revalidateTag } from "next/cache";
 
 export const createBooking = async (data: { availabilityId: string; sessionDate: string; categoryId: string }) => {
 	try {
 		const cookieStore = await cookies();
-		const cookieHeader = cookieStore
-			.getAll()
-			.map((c) => `${c.name}=${c.value}`)
-			.join("; ");
 
-		const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/bookings`, {
+		const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/bookings`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				Cookie: cookieHeader,
+				Cookie: cookieStore.toString(),
 			},
 			body: JSON.stringify(data),
 		});
@@ -27,23 +22,20 @@ export const createBooking = async (data: { availabilityId: string; sessionDate:
 			return { data: null, error: { message: resData.message || "Booking failed" } };
 		}
 
-		revalidateTag("myBookings", "max");
+		revalidateTag("myBookings", "layout");
 		return { data: resData.data, error: null };
 	} catch {
 		return { data: null, error: { message: "Something Went Wrong" } };
 	}
 };
+
 export const cancelBookingAction = async (bookingId: string) => {
 	try {
 		const cookieStore = await cookies();
-		const cookieHeader = cookieStore
-			.getAll()
-			.map((c) => `${c.name}=${c.value}`)
-			.join("; ");
 
-		const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/bookings/${bookingId}/cancel`, {
+		const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/bookings/${bookingId}/cancel`, {
 			method: "PATCH",
-			headers: { Cookie: cookieHeader },
+			headers: { Cookie: cookieStore.toString() },
 		});
 
 		const json = await res.json();
@@ -52,7 +44,7 @@ export const cancelBookingAction = async (bookingId: string) => {
 			return { success: false, message: json.message || "Failed to cancel booking" };
 		}
 
-		revalidateTag("studentBookings", "max");
+		revalidateTag("studentBookings", "layout");
 		return { success: true, message: "Booking cancelled successfully" };
 	} catch {
 		return { success: false, message: "Something went wrong" };
@@ -62,14 +54,10 @@ export const cancelBookingAction = async (bookingId: string) => {
 export const completeSessionAction = async (sessionId: string) => {
 	try {
 		const cookieStore = await cookies();
-		const cookieHeader = cookieStore
-			.getAll()
-			.map((c) => `${c.name}=${c.value}`)
-			.join("; ");
 
-		const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/bookings/${sessionId}/complete`, {
+		const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/bookings/${sessionId}/complete`, {
 			method: "PATCH",
-			headers: { Cookie: cookieHeader },
+			headers: { Cookie: cookieStore.toString() },
 		});
 
 		const json = await res.json();
@@ -78,7 +66,7 @@ export const completeSessionAction = async (sessionId: string) => {
 			return { success: false, message: json.message || "Failed to complete session" };
 		}
 
-		revalidateTag("tutorSessions", "max");
+		revalidateTag("tutorSessions", "layout");
 		return { success: true, message: "Session marked as completed" };
 	} catch {
 		return { success: false, message: "Something went wrong" };

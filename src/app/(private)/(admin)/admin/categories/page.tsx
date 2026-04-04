@@ -2,7 +2,7 @@ import CategoryTable from "@/components/module/category/categoryTable";
 import { CreateCategory } from "@/components/module/category/createCategory";
 import PaginationControls from "@/components/ui/pagination-controls";
 import { categoryService } from "@/services/category.service";
-
+export const metadata = { title: "Categories - Admin | SkillBridge" };
 export default async function CategoryPage({ searchParams }: { searchParams: Promise<{ page: string }> }) {
 	const { page } = await searchParams;
 
